@@ -20,6 +20,9 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Alamofire (3.3.1)
+  - Alamofire-Synchronous (0.0.3):
+    - Alamofire (~> 3.0)
   - CCAutocomplete (0.0.4)
   - FLKAutoLayout (0.2.1)
   - ORStackView (3.0.1):
@@ -28,12 +31,25 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6)
+  - Alamofire (~> 3.3)
+  - Alamofire-Synchronous (from `https://github.com/Dalodd/Alamofire-Synchronous.git`)
   - CCAutocomplete (~> 0.0.4)
   - ORStackView (~> 3.0)
   - SwiftyJSON (~> 2.3)
 
+EXTERNAL SOURCES:
+  Alamofire-Synchronous:
+    :git: https://github.com/Dalodd/Alamofire-Synchronous.git
+
+CHECKOUT OPTIONS:
+  Alamofire-Synchronous:
+    :commit: 2923e89eca488033efcd693166cb7f7bd24c0622
+    :git: https://github.com/Dalodd/Alamofire-Synchronous.git
+
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  Alamofire-Synchronous: 686df4021a37b1e8e4c8601a19714e4f3b0dedb9
   CCAutocomplete: 7e54cab43d10eb9e5385d5b3409e9dee0b7af714
   FLKAutoLayout: 9db6b30c2008d230da608e62c607b11c23b942e6
   ORStackView: a1bb52748cd0ae29891c140baf22ff8972fb363c

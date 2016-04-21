@@ -8,6 +8,8 @@ target 'StockSearch' do
   pod 'ORStackView', '~> 3.0'
   pod 'SwiftyJSON', '~> 2.3'	
   pod 'CCAutocomplete', '~> 0.0.4'
+  pod 'Alamofire', '~> 3.3'
+  pod 'Alamofire-Synchronous', :git => 'https://github.com/Dalodd/Alamofire-Synchronous.git'
 end
 
 target 'StockSearchTests' do

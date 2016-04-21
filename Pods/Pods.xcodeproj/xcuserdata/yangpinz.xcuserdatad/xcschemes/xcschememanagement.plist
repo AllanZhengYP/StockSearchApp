@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Alamofire-Synchronous.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>CCAutocomplete.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,12 +47,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>20EEC0A4772295C8ED838A587E7DBAC9</key>
+		<key>41D809180E14D1437CAF24F1E7E68ACE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>4878C70B21CA37D7CB8A476BF986741B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F10E9D1596F5BD2BD25FA0798FDB00D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>853AFDB60D10177708201C5981350060</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -58,11 +83,6 @@
 			<true/>
 		</dict>
 		<key>C6CEE7BEADAD8E11590F1C4ACF7C4BCC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CE669E9B4E5B48765EC24B6732EF21F9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
