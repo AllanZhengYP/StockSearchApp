@@ -19,10 +19,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
   @IBAction func hitQuoteButton(sender: AnyObject) {
     textInput.resignFirstResponder()
+    if textInput.text == nil || textInput.text == "" {
+      let alert: UIAlertController = UIAlertController(title: "Please Enter a Stock Name or Symbol", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+      let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+      alert.addAction(action)
+      self.presentViewController(alert, animated: true, completion: nil)
+    }
+    else if haveSelectedItem == false {
+      let alert: UIAlertController = UIAlertController(title: "Invalid Symbol", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+      let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+      alert.addAction(action)
+      self.presentViewController(alert, animated: true, completion: nil)
+    }
+    else {
+      textInput.text = ""
+      haveSelectedItem = false
+    }
   }
   
   var autoCompleteViewController: AutoCompleteViewController!
   var isFirstLoad: Bool = true
+  
+  var haveSelectedItem: Bool = false
   
   func textFieldShouldReturn(textField: UITextField) -> Bool { //hit the 'Done' on the keyboard
     self.textInput.resignFirstResponder()
@@ -84,6 +102,7 @@ extension ViewController: AutocompleteDelegate {
 //    self.textInput.text = item.text.inde
     let index = item.text.characters.indexOf("-")?.predecessor()
     self.textInput.text = item.text[item.text.startIndex...index!]
+    self.haveSelectedItem = true
   }
 }
 
