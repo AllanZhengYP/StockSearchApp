@@ -16,6 +16,8 @@ import SwiftyJSON
 class ViewController: UIViewController, UITextFieldDelegate {
 
   @IBOutlet weak var textInput: UITextField!
+  @IBOutlet weak var NavControlBar: UINavigationItem!
+  
 
   @IBAction func hitQuoteButton(sender: AnyObject) {
     textInput.resignFirstResponder()
@@ -53,7 +55,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    self.navigationController?.navigationBarHidden = true
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    self.navigationController?.navigationBarHidden = true
   }
   
   override func viewDidLayoutSubviews() {
@@ -77,7 +83,7 @@ extension ViewController: AutocompleteDelegate {
     return self.textInput
   }
   func autoCompleteThreshold(textField: UITextField) -> Int {
-    return 1
+    return 0
   }
   
   func autoCompleteItemsForSearchTerm(term: String) -> [AutocompletableOption] {

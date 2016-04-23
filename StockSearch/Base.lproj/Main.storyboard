@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bs3-ss-Ge4">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Stock Name or Symbol" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="u6u-A4-h6C">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Stock Name or Symbol" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="u6u-A4-h6C">
                                 <rect key="frame" x="20" y="110" width="560" height="33"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -45,8 +45,8 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="l19-wy-Lgu"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stock Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqP-Re-L4h">
-                                <rect key="frame" x="215.5" y="55" width="170" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Stock Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqP-Re-L4h">
+                                <rect key="frame" x="216" y="55" width="170" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -54,8 +54,8 @@
                                     <rect key="frame" x="229" y="0.0" width="102" height="21"/>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favourites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA4-Uw-4FJ">
-                                <rect key="frame" x="20" y="202" width="79" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Favourites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA4-Uw-4FJ">
+                                <rect key="frame" x="20" y="202" width="79" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -63,10 +63,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="356" height="50"/>
                                 </variation>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hpt-Ea-Ilf">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hpt-Ea-Ilf">
                                 <rect key="frame" x="0.0" y="323" width="51" height="31"/>
                             </switch>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZp-TA-KFM">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZp-TA-KFM">
                                 <rect key="frame" x="265" y="167" width="71" height="30"/>
                                 <state key="normal" title="Get Quote"/>
                                 <variation key="heightClass=regular" misplaced="YES">
@@ -74,6 +74,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="hitQuoteButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="G3O-hn-tlw"/>
+                                    <segue destination="2wE-Cz-Ko6" kind="show" id="hcZ-Su-KOs"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="150" verticalHuggingPriority="150" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tme-Rb-HJ0">
@@ -124,50 +125,52 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="uZc-Dh-n8C"/>
                     <connections>
+                        <outlet property="NavControlBar" destination="uZc-Dh-n8C" id="0aP-PL-zcy"/>
                         <outlet property="textInput" destination="u6u-A4-h6C" id="4hv-SB-Lnu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="331" y="245"/>
+            <point key="canvasLocation" x="1143" y="245"/>
         </scene>
-        <!--Stock Details View-->
-        <scene sceneID="Gvr-g1-P64">
+        <!--Stock Detail View Controller-->
+        <scene sceneID="FRG-CD-ke7">
             <objects>
-                <viewController id="2Fr-1c-ufB" customClass="StockDetailsView" sceneMemberID="viewController">
+                <viewController id="2wE-Cz-Ko6" customClass="StockDetailViewController" customModule="StockSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="gOW-hq-cRg"/>
-                        <viewControllerLayoutGuide type="bottom" id="94D-Jd-EBo"/>
+                        <viewControllerLayoutGuide type="top" id="g0V-rN-vhN"/>
+                        <viewControllerLayoutGuide type="bottom" id="GAL-W8-zWx"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="sCf-mC-5qD" customClass="StockDetailsView">
+                    <view key="view" contentMode="scaleToFill" id="pwD-a6-Lhp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="kxb-4v-63g"/>
+                    <navigationItem key="navigationItem" id="qtp-yi-8ve"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BdB-9S-isW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Ja-l7-qBo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1798" y="245"/>
+            <point key="canvasLocation" x="1891" y="245"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="UnC-wx-VGJ">
+        <scene sceneID="ydC-pz-9fB">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dtp-w6-rfO" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bs3-ss-Ge4" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uNS-CF-QzA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="T1T-Yz-W6P">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="2Fr-1c-ufB" kind="relationship" relationship="rootViewController" id="ft6-hF-Rjz"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="rHj-6y-Ie8"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tOg-Dr-6sh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ito-0f-97S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986" y="245"/>
+            <point key="canvasLocation" x="331" y="245"/>
         </scene>
     </scenes>
     <resources>
