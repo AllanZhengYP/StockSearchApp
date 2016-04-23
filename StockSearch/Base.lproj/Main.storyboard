@@ -146,7 +146,66 @@
                     <view key="view" contentMode="scaleToFill" id="pwD-a6-Lhp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1a7-ir-V9z">
+                                <rect key="frame" x="20" y="72" width="52" height="30"/>
+                                <state key="normal" title="Current"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNU-s4-Kgo">
+                                <rect key="frame" x="268" y="72" width="65" height="30"/>
+                                <state key="normal" title="Historical"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3v-3x-5xo">
+                                <rect key="frame" x="541" y="72" width="39" height="30"/>
+                                <state key="normal" title="News"/>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sdr-y8-Y12">
+                                <rect key="frame" x="0.0" y="110" width="600" height="490"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stock Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nId-hW-uKH">
+                                        <rect key="frame" x="17" y="8" width="161" height="43"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="161" id="7JG-Rp-32w"/>
+                                            <constraint firstAttribute="height" constant="43" id="MRg-Bi-q78"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yz5-En-MiO">
+                                        <rect key="frame" x="539" y="15" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qda-w2-uee">
+                                        <rect key="frame" x="433" y="15" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="yz5-En-MiO" firstAttribute="leading" secondItem="Qda-w2-uee" secondAttribute="trailing" constant="60" id="6hn-XP-ded"/>
+                                    <constraint firstAttribute="bottom" secondItem="nId-hW-uKH" secondAttribute="bottom" constant="439" id="84Y-tx-5fg"/>
+                                    <constraint firstAttribute="trailing" secondItem="nId-hW-uKH" secondAttribute="trailing" constant="422" id="MCU-Ys-Kyg"/>
+                                    <constraint firstItem="nId-hW-uKH" firstAttribute="leading" secondItem="Sdr-y8-Y12" secondAttribute="leading" constant="17" id="PiX-de-Ou4"/>
+                                    <constraint firstItem="yz5-En-MiO" firstAttribute="centerY" secondItem="nId-hW-uKH" secondAttribute="centerY" id="gPv-Pi-y66"/>
+                                    <constraint firstItem="nId-hW-uKH" firstAttribute="top" secondItem="Sdr-y8-Y12" secondAttribute="topMargin" id="va6-7Q-fy7"/>
+                                    <constraint firstAttribute="trailing" secondItem="yz5-En-MiO" secondAttribute="trailing" constant="15" id="whs-XI-OeP"/>
+                                    <constraint firstItem="Qda-w2-uee" firstAttribute="baseline" secondItem="yz5-En-MiO" secondAttribute="baseline" id="xgI-gF-wFo"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Sdr-y8-Y12" firstAttribute="centerX" secondItem="MNU-s4-Kgo" secondAttribute="centerX" id="8Uj-D6-xyW"/>
+                            <constraint firstItem="Z3v-3x-5xo" firstAttribute="baseline" secondItem="MNU-s4-Kgo" secondAttribute="baseline" id="Aq1-Bc-ZQn"/>
+                            <constraint firstItem="1a7-ir-V9z" firstAttribute="leading" secondItem="pwD-a6-Lhp" secondAttribute="leadingMargin" id="Dig-BH-gQH"/>
+                            <constraint firstItem="Sdr-y8-Y12" firstAttribute="bottom" secondItem="GAL-W8-zWx" secondAttribute="top" id="Jw7-vL-koi"/>
+                            <constraint firstItem="1a7-ir-V9z" firstAttribute="baseline" secondItem="MNU-s4-Kgo" secondAttribute="baseline" id="L8E-S9-f9U"/>
+                            <constraint firstItem="Sdr-y8-Y12" firstAttribute="top" secondItem="1a7-ir-V9z" secondAttribute="bottom" constant="8" symbolic="YES" id="R7u-bR-oUP"/>
+                            <constraint firstItem="MNU-s4-Kgo" firstAttribute="centerX" secondItem="pwD-a6-Lhp" secondAttribute="centerX" id="RVU-zc-0mF"/>
+                            <constraint firstItem="Z3v-3x-5xo" firstAttribute="trailing" secondItem="pwD-a6-Lhp" secondAttribute="trailingMargin" id="a8N-0Q-amy"/>
+                            <constraint firstItem="Sdr-y8-Y12" firstAttribute="leading" secondItem="pwD-a6-Lhp" secondAttribute="leading" id="rt5-CU-4zI"/>
+                            <constraint firstItem="MNU-s4-Kgo" firstAttribute="top" secondItem="g0V-rN-vhN" secondAttribute="bottom" constant="8" symbolic="YES" id="vt3-o6-6s7"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qtp-yi-8ve"/>
                 </viewController>

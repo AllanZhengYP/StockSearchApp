@@ -34,8 +34,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
       self.presentViewController(alert, animated: true, completion: nil)
     }
     else {
+      let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["symbol": textInput.text!]).responseJSON()
+      let jsonData = JSON(data: queryResult.data!)
+  
       textInput.text = ""
       haveSelectedItem = false
+      
+      var stockDetail: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
+      if jsonData["Status"].string! == "SUCCESS" {
+        stockDetail.append(["Name" : jsonData["Name"].string!])
+        stockDetail.append(["Symbol" : jsonData["Symbol"].string!])
+        stockDetail.append(["LastPrice" : String(jsonData["LastPrice"].double!)])
+        stockDetail.append(["Change" : String(jsonData["Change"].double!)])
+        stockDetail.append(["ChangePercent" : String(jsonData["ChangePercent"].double!)])
+        stockDetail.append(["Timestamp" : jsonData["Timestamp"].string!])
+        stockDetail.append(["MSDate" : String(jsonData["MSDate"].double!)])
+        stockDetail.append(["MarketCap" : String(jsonData["MarketCap"].double!)])
+        stockDetail.append(["Volume" : String(jsonData["Volume"].double!)])
+        stockDetail.append(["ChangeYTD" : String(jsonData["ChangeYTD"].double!)])
+        stockDetail.append(["ChangePercentYTD" : String(jsonData["ChangePercentYTD"].double!)])
+        stockDetail.append(["High" : String(jsonData["High"].double!)])
+        stockDetail.append(["Low" : String(jsonData["Low"].double!)])
+        stockDetail.append(["Open" : String(jsonData["Open"].double!)])
+      }
+      print(stockDetail[0]["Name"])
     }
   }
   
@@ -92,7 +114,6 @@ extension ViewController: AutocompleteDelegate {
     var autocompleteList: Array<AutocompletableOption> = Array<AutocompletableOption>()
     for i in 0 ..< jsonData.count {
       let item: String = jsonData[i]["Symbol"].string! + "-" + jsonData[i]["Name"].string! + "-" + jsonData[i]["Exchange"].string!
-      print(item)
       let cellData = AutocompleteCellData(text: item, image: nil)
       autocompleteList.append(cellData)
     }
