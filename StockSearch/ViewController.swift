@@ -105,7 +105,7 @@ extension ViewController: AutocompleteDelegate {
     return self.textInput
   }
   func autoCompleteThreshold(textField: UITextField) -> Int {
-    return 0
+    return 2
   }
   
   func autoCompleteItemsForSearchTerm(term: String) -> [AutocompletableOption] {
@@ -122,6 +122,10 @@ extension ViewController: AutocompleteDelegate {
   
   func autoCompleteHeight() -> CGFloat {
     return CGRectGetHeight(self.view.frame) / 3.0
+  }
+  
+  func heightForCells() -> CGFloat {
+    return 35.0
   }
   
   
