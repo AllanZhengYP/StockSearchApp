@@ -10,7 +10,10 @@ import Foundation
 import UIKit
 
 class StockDetailViewController: UIViewController {
+  @IBOutlet weak var segmentedController: UISegmentedControl!
   override func viewDidLoad() {
     self.navigationController?.navigationBarHidden = false
   }
+
+
 }

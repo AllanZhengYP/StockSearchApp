@@ -147,18 +147,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1a7-ir-V9z">
-                                <rect key="frame" x="20" y="72" width="52" height="30"/>
-                                <state key="normal" title="Current"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNU-s4-Kgo">
-                                <rect key="frame" x="268" y="72" width="65" height="30"/>
-                                <state key="normal" title="Historical"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3v-3x-5xo">
-                                <rect key="frame" x="541" y="72" width="39" height="30"/>
-                                <state key="normal" title="News"/>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sdr-y8-Y12">
                                 <rect key="frame" x="0.0" y="110" width="600" height="490"/>
                                 <subviews>
@@ -192,26 +180,36 @@
                                     <constraint firstItem="Qda-w2-uee" firstAttribute="baseline" secondItem="yz5-En-MiO" secondAttribute="baseline" id="xgI-gF-wFo"/>
                                 </constraints>
                             </scrollView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="esL-vJ-IpR">
+                                <rect key="frame" x="188" y="74" width="224" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="224" id="lhp-di-Vpz"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Current"/>
+                                    <segment title="Historical"/>
+                                    <segment title="News"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Sdr-y8-Y12" firstAttribute="centerX" secondItem="MNU-s4-Kgo" secondAttribute="centerX" id="8Uj-D6-xyW"/>
-                            <constraint firstItem="Z3v-3x-5xo" firstAttribute="baseline" secondItem="MNU-s4-Kgo" secondAttribute="baseline" id="Aq1-Bc-ZQn"/>
-                            <constraint firstItem="1a7-ir-V9z" firstAttribute="leading" secondItem="pwD-a6-Lhp" secondAttribute="leadingMargin" id="Dig-BH-gQH"/>
+                            <constraint firstItem="esL-vJ-IpR" firstAttribute="centerX" secondItem="Sdr-y8-Y12" secondAttribute="centerX" id="BFF-lO-OIn"/>
+                            <constraint firstItem="Sdr-y8-Y12" firstAttribute="top" secondItem="esL-vJ-IpR" secondAttribute="bottom" constant="8" symbolic="YES" id="H1d-Yk-nJc"/>
                             <constraint firstItem="Sdr-y8-Y12" firstAttribute="bottom" secondItem="GAL-W8-zWx" secondAttribute="top" id="Jw7-vL-koi"/>
-                            <constraint firstItem="1a7-ir-V9z" firstAttribute="baseline" secondItem="MNU-s4-Kgo" secondAttribute="baseline" id="L8E-S9-f9U"/>
-                            <constraint firstItem="Sdr-y8-Y12" firstAttribute="top" secondItem="1a7-ir-V9z" secondAttribute="bottom" constant="8" symbolic="YES" id="R7u-bR-oUP"/>
-                            <constraint firstItem="MNU-s4-Kgo" firstAttribute="centerX" secondItem="pwD-a6-Lhp" secondAttribute="centerX" id="RVU-zc-0mF"/>
-                            <constraint firstItem="Z3v-3x-5xo" firstAttribute="trailing" secondItem="pwD-a6-Lhp" secondAttribute="trailingMargin" id="a8N-0Q-amy"/>
+                            <constraint firstItem="esL-vJ-IpR" firstAttribute="top" secondItem="g0V-rN-vhN" secondAttribute="bottom" constant="10" id="XVu-hc-ZuG"/>
+                            <constraint firstItem="esL-vJ-IpR" firstAttribute="centerX" secondItem="pwD-a6-Lhp" secondAttribute="centerX" id="ihB-PX-TNU"/>
                             <constraint firstItem="Sdr-y8-Y12" firstAttribute="leading" secondItem="pwD-a6-Lhp" secondAttribute="leading" id="rt5-CU-4zI"/>
-                            <constraint firstItem="MNU-s4-Kgo" firstAttribute="top" secondItem="g0V-rN-vhN" secondAttribute="bottom" constant="8" symbolic="YES" id="vt3-o6-6s7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qtp-yi-8ve"/>
+                    <connections>
+                        <outlet property="segmentedController" destination="esL-vJ-IpR" id="m60-e7-PmP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ja-l7-qBo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1891" y="245"/>
+            <point key="canvasLocation" x="1917" y="245"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ydC-pz-9fB">
