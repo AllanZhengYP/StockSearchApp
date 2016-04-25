@@ -10,7 +10,19 @@ import Foundation
 import UIKit
 
 class StockDetailViewController: UIViewController {
-  @IBOutlet weak var segmentedController: UISegmentedControl!
+  @IBOutlet weak var segmentControlBar: UISegmentedControl!
+  @IBOutlet weak var scrollView: UIScrollView!
+  @IBAction func touchSegmentedController(sender: AnyObject) {
+    if segmentControlBar.selectedSegmentIndex == 0 {
+      scrollView.hidden = true
+    }
+    else if segmentControlBar.selectedSegmentIndex == 1 {
+      
+    }
+    else if segmentControlBar.selectedSegmentIndex == 2 {
+      
+    }
+  }
   override func viewDidLoad() {
     self.navigationController?.navigationBarHidden = false
   }

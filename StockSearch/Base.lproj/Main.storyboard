@@ -63,7 +63,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="356" height="50"/>
                                 </variation>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hpt-Ea-Ilf">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hpt-Ea-Ilf">
                                 <rect key="frame" x="0.0" y="323" width="51" height="31"/>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZp-TA-KFM">
@@ -112,9 +112,10 @@
                             <constraint firstItem="Tme-Rb-HJ0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="191" id="IB9-h8-DrW"/>
                             <constraint firstItem="fA4-Uw-4FJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="182" id="Mrf-cq-Y2j"/>
                             <constraint firstItem="jZp-TA-KFM" firstAttribute="top" secondItem="u6u-A4-h6C" secondAttribute="bottom" constant="24" id="QqH-3n-DqO"/>
-                            <constraint firstItem="Hpt-Ea-Ilf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="303" id="TN6-mk-dQO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Tme-Rb-HJ0" secondAttribute="trailing" id="V9g-75-ovM"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Hpt-Ea-Ilf" secondAttribute="bottom" constant="246" id="Zs7-30-Itu"/>
                             <constraint firstItem="u6u-A4-h6C" firstAttribute="centerX" secondItem="TqP-Re-L4h" secondAttribute="centerX" id="dBr-Sj-kwJ"/>
+                            <constraint firstItem="Hpt-Ea-Ilf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="w7Z-9E-VcV"/>
                             <constraint firstItem="jZp-TA-KFM" firstAttribute="centerX" secondItem="u6u-A4-h6C" secondAttribute="centerX" id="wma-L1-IGQ"/>
                             <constraint firstItem="u6u-A4-h6C" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="110" id="zwK-bj-HtM"/>
                         </constraints>
@@ -147,6 +148,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="esL-vJ-IpR">
+                                <rect key="frame" x="188" y="74" width="224" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="224" id="lhp-di-Vpz"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Current"/>
+                                    <segment title="Historical"/>
+                                    <segment title="News"/>
+                                </segments>
+                                <connections>
+                                    <action selector="touchSegmentedController:" destination="2wE-Cz-Ko6" eventType="touchUpInside" id="pDe-XU-Ep3"/>
+                                </connections>
+                            </segmentedControl>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sdr-y8-Y12">
                                 <rect key="frame" x="0.0" y="110" width="600" height="490"/>
                                 <subviews>
@@ -180,17 +195,6 @@
                                     <constraint firstItem="Qda-w2-uee" firstAttribute="baseline" secondItem="yz5-En-MiO" secondAttribute="baseline" id="xgI-gF-wFo"/>
                                 </constraints>
                             </scrollView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="esL-vJ-IpR">
-                                <rect key="frame" x="188" y="74" width="224" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="224" id="lhp-di-Vpz"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Current"/>
-                                    <segment title="Historical"/>
-                                    <segment title="News"/>
-                                </segments>
-                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -204,7 +208,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="qtp-yi-8ve"/>
                     <connections>
-                        <outlet property="segmentedController" destination="esL-vJ-IpR" id="m60-e7-PmP"/>
+                        <outlet property="scrollView" destination="Sdr-y8-Y12" id="KtJ-q0-97N"/>
+                        <outlet property="segmentControlBar" destination="esL-vJ-IpR" id="Odv-FQ-qto"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ja-l7-qBo" userLabel="First Responder" sceneMemberID="firstResponder"/>
