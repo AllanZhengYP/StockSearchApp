@@ -197,23 +197,28 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="584" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kGh-Go-kY4">
-                                                            <rect key="frame" x="439" y="1" width="137" height="42"/>
-                                                        </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JpY-Cm-lnp">
-                                                            <rect key="frame" x="154" y="11" width="42" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkj-3b-SGd">
                                                             <rect key="frame" x="8" y="11" width="89" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JpY-Cm-lnp">
+                                                            <rect key="frame" x="154" y="11" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kGh-Go-kY4">
+                                                            <rect key="frame" x="439" y="1" width="137" height="42"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="137" id="wHa-TU-N2V"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstItem="kGh-Go-kY4" firstAttribute="trailing" secondItem="i64-jc-hpE" secondAttribute="trailingMargin" id="42B-FS-A1n"/>
+                                                        <constraint firstItem="kGh-Go-kY4" firstAttribute="top" secondItem="i64-jc-hpE" secondAttribute="topMargin" constant="-7" id="5eq-fN-Wha"/>
                                                         <constraint firstItem="rkj-3b-SGd" firstAttribute="centerY" secondItem="kGh-Go-kY4" secondAttribute="centerY" id="TBU-lc-lvS"/>
                                                         <constraint firstItem="rkj-3b-SGd" firstAttribute="baseline" secondItem="JpY-Cm-lnp" secondAttribute="baseline" id="ge0-Br-S8M"/>
                                                         <constraint firstItem="rkj-3b-SGd" firstAttribute="leading" secondItem="i64-jc-hpE" secondAttribute="leadingMargin" id="lXI-et-dGk"/>

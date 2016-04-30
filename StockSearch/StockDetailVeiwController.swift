@@ -48,7 +48,7 @@ extension StockDetailViewController: UITableViewDataSource {
       cell.cellValue.text = stockDetail![1]["Symbol"]!
     case 2:
       cell.cellName.text = "Last Price"
-      cell.cellValue.text = stockDetail![2]["LastPrice"]!
+      cell.cellValue.text = "$ " + stockDetail![2]["LastPrice"]!
     case 3:
       cell.cellName.text = "Change"
       cell.cellValue.text = stockDetail![0]["Name"]!
