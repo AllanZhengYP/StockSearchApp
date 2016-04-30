@@ -18,6 +18,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var textInput: UITextField!
   @IBOutlet weak var NavControlBar: UINavigationItem!
   
+  var stockDetail: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
+  var autoCompleteViewController: AutoCompleteViewController!
+  var isFirstLoad: Bool = true
+  
+  var haveSelectedItem: Bool = false
+  
+  var stockDetailLoaded: Bool = false
+
 
   @IBAction func hitQuoteButton(sender: AnyObject) {
     textInput.resignFirstResponder()
@@ -40,8 +48,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
       textInput.text = ""
       haveSelectedItem = false
       
-      var stockDetail: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
+      
       if jsonData["Status"].string! == "SUCCESS" {
+        stockDetail.removeAll()
         stockDetail.append(["Name" : jsonData["Name"].string!])
         stockDetail.append(["Symbol" : jsonData["Symbol"].string!])
         stockDetail.append(["LastPrice" : String(jsonData["LastPrice"].double!)])
@@ -56,15 +65,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         stockDetail.append(["High" : String(jsonData["High"].double!)])
         stockDetail.append(["Low" : String(jsonData["Low"].double!)])
         stockDetail.append(["Open" : String(jsonData["Open"].double!)])
+        
+        stockDetailLoaded = true
       }
-      print(stockDetail[0]["Name"])
+//      print(stockDetail[0]["Name"])
     }
   }
   
-  var autoCompleteViewController: AutoCompleteViewController!
-  var isFirstLoad: Bool = true
-  
-  var haveSelectedItem: Bool = false
   
   func textFieldShouldReturn(textField: UITextField) -> Bool { //hit the 'Done' on the keyboard
     self.textInput.resignFirstResponder()
@@ -82,6 +89,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
   
   override func viewWillAppear(animated: Bool) {
     self.navigationController?.navigationBarHidden = true
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    let detail: StockDetailViewController = segue.destinationViewController as! StockDetailViewController
+    if segue.identifier == "OptToStockDetail" && stockDetailLoaded == true{
+      detail.stockDetail = stockDetail
+      stockDetailLoaded = false
+    }
   }
   
   override func viewDidLayoutSubviews() {

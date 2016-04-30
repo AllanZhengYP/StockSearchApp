@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		441042951CD434DC009905E3 /* DetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441042941CD434DC009905E3 /* DetailTableCell.swift */; };
 		443AF1241CC8012D0067E3D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443AF1231CC8012D0067E3D5 /* AppDelegate.swift */; };
 		443AF1261CC8012D0067E3D5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443AF1251CC8012D0067E3D5 /* ViewController.swift */; };
 		443AF1291CC8012D0067E3D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 443AF1271CC8012D0067E3D5 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		02FEB16DC4FA74739C95699C /* Pods_StockSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StockSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		441042941CD434DC009905E3 /* DetailTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableCell.swift; sourceTree = "<group>"; };
 		443AF1201CC8012D0067E3D5 /* StockSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		443AF1231CC8012D0067E3D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		443AF1251CC8012D0067E3D5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				443AF1231CC8012D0067E3D5 /* AppDelegate.swift */,
 				443AF1251CC8012D0067E3D5 /* ViewController.swift */,
 				448310EF1CCC21FF00C635C1 /* StockDetailVeiwController.swift */,
+				441042941CD434DC009905E3 /* DetailTableCell.swift */,
 				443AF1271CC8012D0067E3D5 /* Main.storyboard */,
 				443AF12D1CC8012D0067E3D5 /* Assets.xcassets */,
 				443AF12F1CC8012D0067E3D5 /* LaunchScreen.storyboard */,
@@ -343,6 +346,7 @@
 				448310F01CCC21FF00C635C1 /* StockDetailVeiwController.swift in Sources */,
 				443AF12C1CC8012D0067E3D5 /* StockSearch.xcdatamodeld in Sources */,
 				443AF1261CC8012D0067E3D5 /* ViewController.swift in Sources */,
+				441042951CD434DC009905E3 /* DetailTableCell.swift in Sources */,
 				443AF1241CC8012D0067E3D5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
