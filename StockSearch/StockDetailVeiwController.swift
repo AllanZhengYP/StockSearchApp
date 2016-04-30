@@ -51,7 +51,9 @@ extension StockDetailViewController: UITableViewDataSource {
       cell.cellValue.text = "$ " + stockDetail![2]["LastPrice"]!
     case 3:
       cell.cellName.text = "Change"
-      cell.cellValue.text = stockDetail![0]["Name"]!
+      let change = round(Double(stockDetail![3]["Change"]!)! * 100) / 100
+      let changePercent = round(Double(stockDetail![3]["Change"]!)! * 100) / 100
+      cell.cellValue.text = String(change) + "(" + String(changePercent) + "%)"
     case 4:
       cell.cellName.text = "Time and Date"
       cell.cellValue.text = stockDetail![0]["Name"]!
@@ -60,19 +62,22 @@ extension StockDetailViewController: UITableViewDataSource {
       cell.cellValue.text = stockDetail![0]["Name"]!
     case 6:
       cell.cellName.text = "Volume"
-      cell.cellValue.text = stockDetail![0]["Name"]!
+      cell.cellValue.text = String(Double(stockDetail![8]["Volume"]!)!)
     case 7:
       cell.cellName.text = "ChangeYTD"
-      cell.cellValue.text = stockDetail![0]["Name"]!
+      let changeYTD = round(Double(stockDetail![9]["ChangeYTD"]!)! * 100) / 100
+      let changePercentYTD = round(Double(stockDetail![10]["ChangePercentYTD"]!)! * 100) / 100
+      cell.cellValue.text = String(changeYTD) + "(" + String(changePercentYTD) + "%)"
+
     case 8:
       cell.cellName.text = "High Price"
-      cell.cellValue.text = stockDetail![0]["Name"]!
+      cell.cellValue.text = "$" + stockDetail![11]["High"]!
     case 9:
       cell.cellName.text = "Low Price"
-      cell.cellValue.text = stockDetail![0]["Name"]!
+      cell.cellValue.text = "$" + stockDetail![12]["Low"]!
     case 10:
       cell.cellName.text = "Opening Price"
-      cell.cellValue.text = stockDetail![0]["Name"]!
+      cell.cellValue.text = "$" + stockDetail![13]["Open"]!
 
     default:
       cell.textLabel?.text = "Key"

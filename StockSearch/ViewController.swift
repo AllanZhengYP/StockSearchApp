@@ -49,7 +49,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
       haveSelectedItem = false
       
       
-      if jsonData["Status"].string! == "SUCCESS" {
+      if jsonData.count > 0 && jsonData["Status"].string! == "SUCCESS" {
         stockDetail.removeAll()
         stockDetail.append(["Name" : jsonData["Name"].string!])
         stockDetail.append(["Symbol" : jsonData["Symbol"].string!])
