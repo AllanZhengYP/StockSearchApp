@@ -68,6 +68,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         stockDetailLoaded = true
       }
+      else {
+        let alert: UIAlertController = UIAlertController(title: "Invalid Symbol", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+        alert.addAction(action)
+        self.presentViewController(alert, animated: true, completion: nil)
+
+      }
 //      print(stockDetail[0]["Name"])
     }
   }
