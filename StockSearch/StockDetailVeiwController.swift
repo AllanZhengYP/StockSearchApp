@@ -18,10 +18,10 @@ class StockDetailViewController: UIViewController, UIWebViewDelegate {
   @IBOutlet weak var yahooChartView: UIImageView!
   @IBOutlet weak var detailTable: UITableView!
   @IBOutlet weak var textLabel: UILabel!
-
-  @IBOutlet weak var webView: UIWebView!
   @IBOutlet weak var segmentControlBar: UISegmentedControl!
   @IBOutlet weak var scrollView: UIScrollView!
+  
+  @IBOutlet weak var webView: UIWebView!
   @IBAction func touchSegmentedController(sender: AnyObject) {
     if segmentControlBar.selectedSegmentIndex == 0 {
       scrollView.hidden = false
@@ -31,6 +31,12 @@ class StockDetailViewController: UIViewController, UIWebViewDelegate {
     else if segmentControlBar.selectedSegmentIndex == 1 {
       scrollView.hidden = true
       detailTable.hidden = true
+      
+      let myPath = NSBundle.mainBundle().pathForResource("HistoricalChart", ofType: "html")
+      webView.delegate = self //For webViewDidFinishLoad to be called
+      webView.loadRequest(NSURLRequest(URL: NSURL(string: myPath!)!))
+
+      
       webView.hidden = false
     }
     else if segmentControlBar.selectedSegmentIndex == 2 {
@@ -44,7 +50,9 @@ class StockDetailViewController: UIViewController, UIWebViewDelegate {
   
   override func viewDidLoad() {
     self.navigationController?.navigationBarHidden = false
-    
+    scrollView.hidden = false
+    detailTable.hidden = false
+    webView.hidden = true
     if (stockDetail != nil) && (stockDetail![1]["Symbol"] != nil) {
       let imgURL: String = "http://chart.finance.yahoo.com/t?s="+stockDetail![1]["Symbol"]!+"&lang=en-US&width=480&height=350"
       if let url:NSURL = NSURL(string: imgURL)! {
@@ -54,10 +62,6 @@ class StockDetailViewController: UIViewController, UIWebViewDelegate {
       }
 
     }
-    
-//    let myPath = NSBundle.mainBundle().pathForResource("HistoricalChart", ofType: "html")
-//    webView.loadRequest(NSURLRequest(URL: NSURL(string: myPath!)!))
-    
   }
 }
 
@@ -148,4 +152,3 @@ extension StockDetailViewController: UITableViewDataSource {
     return 11
   }
 }
-
