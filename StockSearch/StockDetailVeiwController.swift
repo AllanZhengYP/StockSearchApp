@@ -20,6 +20,7 @@ class StockDetailViewController: UIViewController, UIWebViewDelegate {
   @IBOutlet weak var textLabel: UILabel!
   @IBOutlet weak var segmentControlBar: UISegmentedControl!
   @IBOutlet weak var scrollView: UIScrollView!
+  @IBOutlet weak var navigationBar: UINavigationItem!
   
   @IBOutlet weak var webView: UIWebView!
   @IBAction func touchSegmentedController(sender: AnyObject) {
@@ -35,8 +36,7 @@ class StockDetailViewController: UIViewController, UIWebViewDelegate {
       let myPath = NSBundle.mainBundle().pathForResource("HistoricalChart", ofType: "html")
       webView.delegate = self //For webViewDidFinishLoad to be called
       webView.loadRequest(NSURLRequest(URL: NSURL(string: myPath!)!))
-
-      
+    
       webView.hidden = false
     }
     else if segmentControlBar.selectedSegmentIndex == 2 {
@@ -46,10 +46,10 @@ class StockDetailViewController: UIViewController, UIWebViewDelegate {
     }
   }
   
-  
-  
   override func viewDidLoad() {
     self.navigationController?.navigationBarHidden = false
+    self.navigationBar.title = stockDetail![1]["Symbol"]!
+    
     scrollView.hidden = false
     detailTable.hidden = false
     webView.hidden = true
@@ -150,5 +150,13 @@ extension StockDetailViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 11
+  }
+}
+
+extension StockDetailViewController {
+  func webViewDidFinishLoad(webView: UIWebView) {
+    let script = "$(function(){plotChart(\"" + stockDetail![1]["Symbol"]! + "\");});"
+    print(script)
+    webView.stringByEvaluatingJavaScriptFromString(script)
   }
 }

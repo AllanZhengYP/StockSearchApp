@@ -7,7 +7,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 </head>
 	<body>
-    <div>Hello World!</div>
 		<div class="container">
 			<div class="col-lg-12 col-md-12 col-sm-12" id="chart">
 			</div>
@@ -16,5 +15,148 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script src="https://code.highcharts.com/stock/highstock.js"></script>
 		<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script>
+      
+        
+      function plotChart(symbol) {
+        var params = renderChartJson(symbol);
+        $.ajax({
+           beforeSend:function(){
+             $("#chart").text("Loading chart...");
+           },
+           data: {parameters: encodeURIComponent(params)},
+           url: "http://steel-utility-127007.appspot.com",
+           type: 'GET',
+           success: function(data){
+             $("#chart").empty();
+             var interactiveJSON = $.parseJSON(data);
+             var metaData = serialize(interactiveJSON);
+             drawChart(metaData, symbol);
+             // alert(interactiveJSON.Labels);
+           
+           },
+           error: function(response,txtStatus){
+             console.log(response,txtStatus)
+           }
+         });
+      }
+    
+    function renderChartJson(symbol) {
+      var text = '{"Normalized": false, "NumberOfDays": 1095, "DataPeriod": "Day", "Elements": [{"Symbol": "'+symbol+'", "Type": "price", "Params": ["ohlc"]}]}';
+      $("#chart").text(text)
+      return text;
+    }
+    
+    function serialize(json) {
+      var dates = json.Dates || [];
+      var elements = json.Elements || [];
+      var chartSeries = [];
+      
+      if (elements[0]){
+        
+        for (var i = 0, datLen = dates.length; i < datLen; i++) {
+          var dat = fixDate( dates[i] );
+          var pointData = [
+                           dat,
+                           elements[0].DataSeries['close'].values[i]
+                           ];
+                           chartSeries.push( pointData );
+        };
+      }
+      return chartSeries;
+      
+    }
+    
+    function fixDate(dateIn) {
+      var dat = new Date(dateIn);
+      return Date.UTC(dat.getFullYear(), dat.getMonth(), dat.getDate());
+    }
+    
+    function drawChart(data, symbol) {
+      $('#chart').highcharts('StockChart', {
+                             
+                             
+                             rangeSelector : {
+                             buttons : [{
+                                        type : 'day',
+                                        count : 7,
+                                        text : '1w'
+                                        }, {
+                                        type : 'month',
+                                        count : 1,
+                                        text : '1m'
+                                        }, {
+                                        type : 'month',
+                                        count : 3,
+                                        text : '3m'
+                                        }, {
+                                        type : 'month',
+                                        count : 6,
+                                        text : '6m'
+                                        },  {
+                                        type: 'ytd',
+                                        text: 'YTD'
+                                        }, {
+                                        type : 'year',
+                                        count : 1,
+                                        text : '1y'
+                                        },  {
+                                        type : 'all',
+                                        count : 1,
+                                        text : 'All'
+                                        }],
+                             selected : 0,
+                             inputEnabled : false
+                             },
+                             
+                             exporting: {
+                             enabled: false
+                             },
+                             
+                             title : {
+                             text : symbol+' Stock Price'
+                             },
+                             
+                             yAxis: {
+                             title: {
+                             text: 'Stock Value',
+                             align: 'middle',
+                             textAlign: 'left'
+                             }
+                             },
+                             
+                             series : [{
+                                       name : symbol+' Stock Price',
+                                       data : data,
+                                       type : 'area',
+                                       threshold : null,
+                                       tooltip : {
+                                       valueDecimals : 2,
+                                       valuePrefix: "$"
+                                       },
+                                       fillColor : {
+                                       linearGradient : {
+                                       x1: 0,
+                                       y1: 0,
+                                       x2: 0,
+                                       y2: 1
+                                       },
+                                       stops : [
+                                                [0, Highcharts.getOptions().colors[0]],
+                                                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                                ]
+                                       }
+                                       
+                                       }]
+                             });
+    }
+    </script>
+<!--    <script>-->
+<!--      $(function(){-->
+<!--        plotChart("AAPL");-->
+<!--      });-->
+<!--    </script>-->
+
 	</body>
 </html>
