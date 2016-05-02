@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var textInput: UITextField!
   @IBOutlet weak var NavControlBar: UINavigationItem!
   
+  var newsData: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
   var stockDetail: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
   var autoCompleteViewController: AutoCompleteViewController!
   var isFirstLoad: Bool = true
@@ -36,10 +37,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
       self.presentViewController(alert, animated: true, completion: nil)
     }
     else if haveSelectedItem == false {
+      textInput.text = nil
       let alert: UIAlertController = UIAlertController(title: "Invalid Symbol", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
       let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
       alert.addAction(action)
       self.presentViewController(alert, animated: true, completion: nil)
+      
     }
     else {
       let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["symbol": textInput.text!]).responseJSON()
@@ -47,7 +50,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
   
       textInput.text = ""
       haveSelectedItem = false
-      
       
       if jsonData.count > 0 && jsonData["Status"].string! == "SUCCESS" {
         stockDetail.removeAll()
@@ -67,8 +69,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
         stockDetail.append(["Open" : String(jsonData["Open"].double!)])
         
         stockDetailLoaded = true
+        
+        //load the news
+        let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["q": stockDetail[1]["Symbol"]!]).responseJSON()
+        let jsonData = JSON(data: queryResult.data!)
+        if jsonData.count > 0 {
+          newsData.removeAll()
+          for var i = 0; i < jsonData["d"]["results"].array?.count; i += 1 {
+            var news: Dictionary<String, String> = Dictionary<String, String>()
+            news["Title"] = jsonData["d"]["results"][i]["Title"].string
+            news["Url"] = jsonData["d"]["results"][i]["Url"].string
+            news["Source"] = jsonData["d"]["results"][i]["Source"].string
+            news["Description"] = jsonData["d"]["results"][i]["Description"].string
+            news["Date"] = jsonData["d"]["results"][i]["Date"].string
+            newsData.append(news)
+            news.removeAll()
+          }
+        }
+
+        
+        
       }
       else {
+        textInput.text = nil
         let alert: UIAlertController = UIAlertController(title: "Invalid Symbol", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
         alert.addAction(action)
@@ -100,10 +123,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     let detail: StockDetailViewController = segue.destinationViewController as! StockDetailViewController
+    let news: StockDetailViewController = segue.destinationViewController as! StockDetailViewController
+
     if segue.identifier == "OptToStockDetail" && stockDetailLoaded == true{
       detail.stockDetail = stockDetail
+      news.newsData = newsData
       stockDetailLoaded = false
     }
+    
   }
   
   override func viewDidLayoutSubviews() {
