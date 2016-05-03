@@ -29,7 +29,7 @@ class NewsTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
         news["Description"] = jsonData["d"]["results"][i]["Description"].string
         news["Date"] = jsonData["d"]["results"][i]["Date"].string
         newsData.append(news)
-        news.removeAll()
+        news.removeAll() 
       }
     }
 
@@ -40,6 +40,20 @@ class NewsTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     let newscell = tableView.dequeueReusableCellWithIdentifier("News", forIndexPath: indexPath) as! NewsTableCell
     newscell.newsTitle.text = newsData[indexPath.row]["Title"]
     newscell.newsBody.text = newsData[indexPath.row]["Description"]
+    newscell.newsPulisher.text = newsData[indexPath.row]["Source"]
+    
+//    //convert the date
+//    let dateFormatter = NSDateFormatter()
+//    dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+//    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+//    let date = dateFormatter.dateFromString( newsData[indexPath.row]["Date"]!)
+//    let outputFormatter = NSDateFormatter()
+//    outputFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+//    let convertedDate = outputFormatter.stringFromDate(date!)
+    
+    newscell.newsDate.text = newsData[indexPath.row]["Date"]
+
+    
     return newscell
 
   }

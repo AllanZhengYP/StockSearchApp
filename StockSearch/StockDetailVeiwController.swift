@@ -78,16 +78,3 @@ class StockDetailViewController: UIViewController {
 
 
 
-extension StockDetailViewController {
-  }
-
-extension StockDetailViewController {
-  func webViewDidFinishLoad(webView: UIWebView) {
-    let script = "$(function(){plotChart(\"" + stockDetail![1]["Symbol"]! + "\");});"
-    webView.stringByEvaluatingJavaScriptFromString(script)
-  }
-}
-
-
-
-

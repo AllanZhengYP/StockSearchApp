@@ -30,7 +30,7 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
       cell.cellValue.text = stockDetail![1]["Symbol"]!
     case 2:
       cell.cellName.text = "Last Price"
-      cell.cellValue.text = "$ " + stockDetail![2]["LastPrice"]!
+      cell.cellValue.text = "$ " + String(round(Double(stockDetail![2]["LastPrice"]!)! * 100) / 100)
     case 3:
       cell.cellName.text = "Change"
       let change = round(Double(stockDetail![3]["Change"]!)! * 100) / 100
@@ -84,13 +84,13 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
       }
     case 8:
       cell.cellName.text = "High Price"
-      cell.cellValue.text = "$ " + stockDetail![11]["High"]!
+      cell.cellValue.text = "$ " + String(round(Double(stockDetail![11]["High"]!)! * 100) / 100)
     case 9:
       cell.cellName.text = "Low Price"
-      cell.cellValue.text = "$ " + stockDetail![12]["Low"]!
+      cell.cellValue.text = "$ " + String(round(Double(stockDetail![12]["Low"]!)! * 100) / 100)
     case 10:
       cell.cellName.text = "Opening Price"
-      cell.cellValue.text = "$ " + stockDetail![13]["Open"]!
+      cell.cellValue.text = "$ " + String(round(Double(stockDetail![13]["Open"]!)! * 100) / 100)
       
     default:
       cell.textLabel?.text = "Key"
