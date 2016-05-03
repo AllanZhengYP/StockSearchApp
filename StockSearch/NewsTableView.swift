@@ -63,4 +63,11 @@ class NewsTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     return newsData.count
  
   }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let rowIndex = indexPath.row
+    if let checkURL = NSURL(string: newsData[rowIndex]["Url"]!) {
+      UIApplication.sharedApplication().openURL(checkURL)
+    }
+  }
 }
