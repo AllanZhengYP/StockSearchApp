@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:FavouriteStock+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:FavouriteStock.swift">
+   </FileRef>
+   <FileRef
       location = "group:StockSearch.xcodeproj">
    </FileRef>
    <FileRef

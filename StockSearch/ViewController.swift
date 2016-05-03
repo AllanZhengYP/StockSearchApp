@@ -70,22 +70,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         stockDetailLoaded = true
         
-        //load the news
-        let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["q": stockDetail[1]["Symbol"]!]).responseJSON()
-        let jsonData = JSON(data: queryResult.data!)
-        if jsonData.count > 0 {
-          newsData.removeAll()
-          for var i = 0; i < jsonData["d"]["results"].array?.count; i += 1 {
-            var news: Dictionary<String, String> = Dictionary<String, String>()
-            news["Title"] = jsonData["d"]["results"][i]["Title"].string
-            news["Url"] = jsonData["d"]["results"][i]["Url"].string
-            news["Source"] = jsonData["d"]["results"][i]["Source"].string
-            news["Description"] = jsonData["d"]["results"][i]["Description"].string
-            news["Date"] = jsonData["d"]["results"][i]["Date"].string
-            newsData.append(news)
-            news.removeAll()
-          }
-        }
+//        //load the news
+//        let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["q": stockDetail[1]["Symbol"]!]).responseJSON()
+//        let jsonData = JSON(data: queryResult.data!)
+//        if jsonData.count > 0 {
+//          newsData.removeAll()
+//          for var i = 0; i < jsonData["d"]["results"].array?.count; i += 1 {
+//            var news: Dictionary<String, String> = Dictionary<String, String>()
+//            news["Title"] = jsonData["d"]["results"][i]["Title"].string
+//            news["Url"] = jsonData["d"]["results"][i]["Url"].string
+//            news["Source"] = jsonData["d"]["results"][i]["Source"].string
+//            news["Description"] = jsonData["d"]["results"][i]["Description"].string
+//            news["Date"] = jsonData["d"]["results"][i]["Date"].string
+//            newsData.append(news)
+//            news.removeAll()
+//          }
+//        }
 
         
         
@@ -127,7 +127,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     if segue.identifier == "OptToStockDetail" && stockDetailLoaded == true{
       detail.stockDetail = stockDetail
-      news.newsData = newsData
+//      news.newsData = newsData
       stockDetailLoaded = false
     }
     
