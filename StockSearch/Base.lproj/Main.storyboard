@@ -68,9 +68,15 @@
                                         <include reference="weJ-7c-UhO"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="hitRefreshButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l2h-GV-ilE"/>
+                                </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2bZ-CQ-F01">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2bZ-CQ-F01">
                                 <rect key="frame" x="492" y="224" width="51" height="31"/>
+                                <connections>
+                                    <action selector="autoRefreshSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="rGA-kE-edC"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AutoRefresh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wN0-cR-ebY">
                                 <rect key="frame" x="414" y="230" width="70" height="21"/>
@@ -104,19 +110,75 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="l19-wy-Lgu"/>
                                 </connections>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iHp-8m-zOU">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="74" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iHp-8m-zOU">
                                 <rect key="frame" x="20" y="259" width="560" height="350"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoriteCell" id="BMP-eS-qzl">
-                                        <rect key="frame" x="0.0" y="28" width="560" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoriteCell" rowHeight="74" id="BMP-eS-qzl" customClass="FavouriteTableCell" customModule="StockSearch" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="560" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BMP-eS-qzl" id="pUM-vK-LIg">
-                                            <rect key="frame" x="0.0" y="0.0" width="560" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="560" height="74"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FCX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bm-bo-19K">
+                                                    <rect key="frame" x="17" y="8" width="33" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 9.99" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2U4-gn-LYK">
+                                                    <rect key="frame" x="255" y="7" width="50" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-0.45(-4.35%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jev-ng-71S">
+                                                    <rect key="frame" x="443" y="8" width="109" height="21"/>
+                                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Market Cap: 12.38 Billion" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vif-42-yY5">
+                                                    <rect key="frame" x="411" y="35" width="141" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Freeport-McMoRan Inc" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eq-c3-UAl">
+                                                    <rect key="frame" x="17" y="35" width="131" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="2U4-gn-LYK" firstAttribute="top" secondItem="pUM-vK-LIg" secondAttribute="topMargin" constant="-1" id="4NA-cB-nug"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="jev-ng-71S" secondAttribute="trailing" id="BFE-oA-iEi"/>
+                                                <constraint firstAttribute="topMargin" secondItem="jev-ng-71S" secondAttribute="top" id="DIJ-RS-IKB"/>
+                                                <constraint firstItem="2U4-gn-LYK" firstAttribute="leading" secondItem="pUM-vK-LIg" secondAttribute="leadingMargin" constant="247" id="KLd-kD-qEP"/>
+                                                <constraint firstItem="7eq-c3-UAl" firstAttribute="top" secondItem="vif-42-yY5" secondAttribute="top" id="Ksh-TF-AAq"/>
+                                                <constraint firstItem="vif-42-yY5" firstAttribute="top" secondItem="jev-ng-71S" secondAttribute="bottom" constant="6" id="PCn-iS-ytP"/>
+                                                <constraint firstItem="7eq-c3-UAl" firstAttribute="leading" secondItem="7bm-bo-19K" secondAttribute="leading" id="X5E-1N-KKs"/>
+                                                <constraint firstItem="7bm-bo-19K" firstAttribute="leading" secondItem="pUM-vK-LIg" secondAttribute="leadingMargin" constant="9" id="fof-lG-yfA"/>
+                                                <constraint firstItem="vif-42-yY5" firstAttribute="trailing" secondItem="jev-ng-71S" secondAttribute="trailing" id="fxu-2w-Waw"/>
+                                                <constraint firstAttribute="topMargin" secondItem="7bm-bo-19K" secondAttribute="top" id="ibJ-pC-0qa"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="change" destination="jev-ng-71S" id="fYd-jb-HIU"/>
+                                            <outlet property="lastPrice" destination="2U4-gn-LYK" id="dqJ-Tq-onV"/>
+                                            <outlet property="marketCap" destination="vif-42-yY5" id="vAO-dh-kCb"/>
+                                            <outlet property="name" destination="7eq-c3-UAl" id="3iS-Qp-i4G"/>
+                                            <outlet property="symbol" destination="7bm-bo-19K" id="aD8-t6-EDD"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="BVe-5Y-KAm"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Lwg-Mj-zvc"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.12941176470588234" green="0.91764705882352937" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
@@ -158,6 +220,7 @@
                     <navigationItem key="navigationItem" id="uZc-Dh-n8C"/>
                     <connections>
                         <outlet property="NavControlBar" destination="uZc-Dh-n8C" id="0aP-PL-zcy"/>
+                        <outlet property="favouritListTable" destination="iHp-8m-zOU" id="Q4F-E4-OUJ"/>
                         <outlet property="textInput" destination="u6u-A4-h6C" id="4hv-SB-Lnu"/>
                     </connections>
                 </viewController>
@@ -296,6 +359,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PuL-ob-cL5">
                                         <rect key="frame" x="292" y="8" width="50" height="50"/>
                                         <state key="normal" image="StarUnfilled-50"/>
+                                        <connections>
+                                            <action selector="hitLikeButton:" destination="aEf-Ih-tp6" eventType="touchUpInside" id="ERE-wd-SLw"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvF-VX-KBR">
                                         <rect key="frame" x="234" y="8" width="50" height="50"/>
@@ -426,6 +492,7 @@
                     <size key="freeformSize" width="560" height="1200"/>
                     <connections>
                         <outlet property="detailTable" destination="JI6-jS-LON" id="1pm-Yx-FUl"/>
+                        <outlet property="likeButton" destination="PuL-ob-cL5" id="BOj-In-xSj"/>
                         <outlet property="scrollView" destination="Sdr-y8-Y12" id="wdl-Kv-U92"/>
                         <outlet property="textLabel" destination="nId-hW-uKH" id="6bN-cH-UYP"/>
                         <outlet property="yahooChartView" destination="Lha-d7-tPH" id="Bph-6u-hVo"/>

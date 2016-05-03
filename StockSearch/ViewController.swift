@@ -11,12 +11,15 @@ import CCAutocomplete
 import Alamofire
 import Alamofire_Synchronous
 import SwiftyJSON
+import CoreData
 
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
   @IBOutlet weak var textInput: UITextField!
   @IBOutlet weak var NavControlBar: UINavigationItem!
+  @IBOutlet weak var favouritListTable: UITableView!
+  
   
   var newsData: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
   var stockDetail: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
@@ -26,6 +29,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
   var haveSelectedItem: Bool = false
   
   var stockDetailLoaded: Bool = false
+  
+  var favouriteListLog = [NSManagedObject]() //type shifter for Core Data
+  
+  var timer = NSTimer() //timer class for autorefresh class
 
 
   @IBAction func hitQuoteButton(sender: AnyObject) {
@@ -69,26 +76,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         stockDetail.append(["Open" : String(jsonData["Open"].double!)])
         
         stockDetailLoaded = true
-        
-//        //load the news
-//        let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["q": stockDetail[1]["Symbol"]!]).responseJSON()
-//        let jsonData = JSON(data: queryResult.data!)
-//        if jsonData.count > 0 {
-//          newsData.removeAll()
-//          for var i = 0; i < jsonData["d"]["results"].array?.count; i += 1 {
-//            var news: Dictionary<String, String> = Dictionary<String, String>()
-//            news["Title"] = jsonData["d"]["results"][i]["Title"].string
-//            news["Url"] = jsonData["d"]["results"][i]["Url"].string
-//            news["Source"] = jsonData["d"]["results"][i]["Source"].string
-//            news["Description"] = jsonData["d"]["results"][i]["Description"].string
-//            news["Date"] = jsonData["d"]["results"][i]["Date"].string
-//            newsData.append(news)
-//            news.removeAll()
-//          }
-//        }
 
-        
-        
       }
       else {
         textInput.text = nil
@@ -115,19 +103,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBarHidden = true
+
   }
   
   override func viewWillAppear(animated: Bool) {
     self.navigationController?.navigationBarHidden = true
+    reloadFavListTable()
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     let detail: StockDetailViewController = segue.destinationViewController as! StockDetailViewController
-    let news: StockDetailViewController = segue.destinationViewController as! StockDetailViewController
 
     if segue.identifier == "OptToStockDetail" && stockDetailLoaded == true{
       detail.stockDetail = stockDetail
-//      news.newsData = newsData
       stockDetailLoaded = false
     }
     
@@ -184,5 +172,119 @@ extension ViewController: AutocompleteDelegate {
     self.textInput.text = item.text[item.text.startIndex...index!]
     self.haveSelectedItem = true
   }
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource { //favourite list loading
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return favouriteListLog.count
+  }
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("favoriteCell", forIndexPath: indexPath) as! FavouriteTableCell
+    let stock = favouriteListLog[indexPath.row]
+    let symbol = stock.valueForKey("symbol") as? String
+    cell.symbol.text = symbol
+    
+    //query for detail
+    let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["symbol": symbol!]).responseJSON()
+    let jsonData = JSON(data: queryResult.data!)
+    var favStockInfo: (Name: String, Change: Double, ChangePercent: Double, MarketCap: Double)?
+    if jsonData.count > 0 && jsonData["Status"].string! == "SUCCESS" {
+      favStockInfo = (jsonData["Name"].string!,
+                      jsonData["Change"].double!,
+                      jsonData["ChangePercent"].double!,
+                      jsonData["MarketCap"].double!)
+    }
+    
+    //cell stock name
+    cell.name.text = favStockInfo!.Name
+    //cell stock chage
+    let change = round(Double(favStockInfo!.Change) * 100) / 100
+    let changePercent = round(Double(favStockInfo!.ChangePercent) * 100) / 100
+    cell.change.text = String(change) + "(" + String(changePercent) + "%)"
+    //change background color
+    if change > 0 {
+      cell.change.backgroundColor = UIColor.greenColor()
+    } else {
+      cell.change.backgroundColor = UIColor.redColor()
+    }
+    //cell stock cap
+    let cap = Double(favStockInfo!.MarketCap)
+    let capStr: String?
+    if cap > 1000_000_000 {
+      capStr = String(round(cap / 1000_000_000 * 100) / 100) + " Billion"
+      cell.marketCap.text = capStr
+    }
+    else if cap > 1000_000 {
+      capStr = String(round(cap / 1000_000 * 100) / 100) + " Million"
+      cell.marketCap.text = capStr
+    }
+    else {
+      capStr = String(round(cap * 100) / 100)
+      cell.marketCap.text = capStr
+    }
+
+    return cell
+  }
+  
+  //delete a table row by swipe
+  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    switch editingStyle {
+    case .Delete:
+      //remove the symbol item from CoreData
+      let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+      let managedContext = appDelegate.managedObjectContext
+      managedContext.deleteObject(favouriteListLog[indexPath.row] as NSManagedObject)
+      favouriteListLog.removeAtIndex(indexPath.row)
+      do {
+        try managedContext.save()
+      } catch {
+        print("error in deleting item form Core Data")
+      }
+      //tableView.reloadData()
+      tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    default:
+      return
+    }
+  }
+  
+}
+
+//implement the refresh button
+extension ViewController {
+  @IBAction func hitRefreshButton(sender: AnyObject) {
+    reloadFavListTable()
+  }
+  
+  func reloadFavListTable() {
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    
+    let fetchRequest = NSFetchRequest(entityName: "FavouriteStock")
+    var fetchedResults = [NSManagedObject]()
+    do {
+      fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+    } catch {
+      print("Could not fetch")
+    }
+    favouriteListLog = fetchedResults
+    
+    favouritListTable.reloadData()
+  }
+}
+
+
+//implement the auto refresh
+extension ViewController {
+  
+  @IBAction func autoRefreshSwitch(sender: AnyObject) {
+    if (sender.on != nil) {
+      timer.invalidate()
+      timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector(reloadFavListTable()), userInfo: nil, repeats: true)
+    } else {
+      timer.invalidate()
+    }
+  }
+  
 }
 

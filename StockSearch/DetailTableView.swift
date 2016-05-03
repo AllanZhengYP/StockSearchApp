@@ -8,16 +8,48 @@
 
 import Foundation
 import UIKit
+import CoreData
+
 class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSource {
   var stockDetail: Array<Dictionary<String, String>>?
+  var stocks = [NSManagedObject]() //prepare for core data
+  var favouriteListLog = [NSManagedObject]()
   
   @IBOutlet weak var yahooChartView: UIImageView!
   @IBOutlet weak var detailTable: UITableView!
   @IBOutlet weak var textLabel: UILabel!
   @IBOutlet weak var scrollView: UIScrollView!
+  @IBOutlet weak var likeButton: UIButton!
+  @IBAction func hitLikeButton(sender: AnyObject) {
+    
+    
+    likeButton.setImage(UIImage(named: "StarFilled-50"), forState: UIControlState.Normal)
+    if !isInFavList(stockDetail![1]["Symbol"]!) {
+      saveSybmol(stockDetail![1]["Symbol"]!)
+    }    
+  }
+  
+  //like the button, insert the symbol into Core Data
+  func saveSybmol(symbol: String) -> () {
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let entity =  NSEntityDescription.entityForName("FavouriteStock", inManagedObjectContext:managedContext)
+    let stock = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+    stock.setValue(symbol, forKey: "symbol")
+    
+    do{
+      try managedContext.save()
+    } catch {
+      print("error in saving \(symbol)")
+    }
+    
+  }
   
   override func viewDidLoad() {
     scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+    if isInFavList(stockDetail![1]["Symbol"]!) {
+      likeButton.setImage(UIImage(named: "StarFilled-50"), forState: UIControlState.Normal)
+    }
   }
   
   override func viewWillLayoutSubviews() {//set the scrollviews area
@@ -26,7 +58,29 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
     scrollView.contentSize.width = 0
   }
   
-  
+  //check if the detailed stock is in the favourite list 
+  //get the newest Favourite List from core data
+  func isInFavList(symbol: String) -> Bool {
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let fetchRequest = NSFetchRequest(entityName: "FavouriteStock")
+    do {
+      favouriteListLog = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+    } catch {
+      print("Could not fetch")
+    }
+    
+    //decide the like button should be filled or unfilled
+    if favouriteListLog.count > 0 {
+      for managedContextItem in favouriteListLog {
+        let itemSymbol = managedContextItem.valueForKey("symbol") as! String
+        if itemSymbol == symbol{
+          return true
+        }
+      }
+    }
+    return false
+  }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! DetailTableCell
