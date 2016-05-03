@@ -17,7 +17,16 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
   @IBOutlet weak var scrollView: UIScrollView!
   
   override func viewDidLoad() {
+    scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
   }
+  
+  override func viewWillLayoutSubviews() {//set the scrollviews area
+    scrollView.frame = self.view.bounds
+    scrollView.contentSize.height = 1100
+    scrollView.contentSize.width = 0
+  }
+  
+  
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! DetailTableCell

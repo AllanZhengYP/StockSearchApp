@@ -54,9 +54,9 @@ class StockDetailViewController: UIViewController {
     self.navigationController?.navigationBarHidden = false
     self.navigationBar.title = stockDetail![1]["Symbol"]!
     
-    
   }
   
+
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
     if segue.identifier == "sagueToDetailTable" && stockDetail != nil{
