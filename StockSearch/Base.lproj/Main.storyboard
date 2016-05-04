@@ -18,15 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stock Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqP-Re-L4h">
-                                <rect key="frame" x="216" y="82" width="170" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="heightClass=regular" misplaced="YES">
-                                    <rect key="frame" x="229" y="0.0" width="102" height="21"/>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favourites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA4-Uw-4FJ">
                                 <rect key="frame" x="20" y="229" width="79" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -181,6 +172,15 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Lwg-Mj-zvc"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Stock Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqP-Re-L4h">
+                                <rect key="frame" x="215" y="82" width="170" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="29"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="heightClass=regular" misplaced="YES">
+                                    <rect key="frame" x="229" y="0.0" width="102" height="21"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.12941176470588234" green="0.91764705882352937" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -199,7 +199,7 @@
                             <constraint firstItem="jZp-TA-KFM" firstAttribute="top" secondItem="u6u-A4-h6C" secondAttribute="bottom" constant="24" id="QqH-3n-DqO"/>
                             <constraint firstItem="Tme-Rb-HJ0" firstAttribute="leading" secondItem="2bZ-CQ-F01" secondAttribute="trailing" constant="8" symbolic="YES" id="WAC-47-hfX"/>
                             <constraint firstItem="iHp-8m-zOU" firstAttribute="top" secondItem="wN0-cR-ebY" secondAttribute="bottom" constant="8" symbolic="YES" id="Waw-dJ-Zh0"/>
-                            <constraint firstItem="u6u-A4-h6C" firstAttribute="centerX" secondItem="TqP-Re-L4h" secondAttribute="centerX" constant="-1" id="dBr-Sj-kwJ"/>
+                            <constraint firstItem="u6u-A4-h6C" firstAttribute="centerX" secondItem="TqP-Re-L4h" secondAttribute="centerX" id="dBr-Sj-kwJ"/>
                             <constraint firstItem="2bZ-CQ-F01" firstAttribute="leading" secondItem="wN0-cR-ebY" secondAttribute="trailing" constant="8" symbolic="YES" id="dqz-Yy-ynF"/>
                             <constraint firstItem="fA4-Uw-4FJ" firstAttribute="top" secondItem="u6u-A4-h6C" secondAttribute="bottom" constant="59" id="hzc-3e-I9i"/>
                             <constraint firstItem="iHp-8m-zOU" firstAttribute="leading" secondItem="fA4-Uw-4FJ" secondAttribute="leading" id="l63-YM-RD9"/>

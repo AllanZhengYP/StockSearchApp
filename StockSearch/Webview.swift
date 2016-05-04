@@ -13,14 +13,22 @@ class Webview: UIViewController, UIWebViewDelegate {
   @IBOutlet weak var webView: UIWebView!
   
   override func viewDidLoad() {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(Webview.reloadWebview),name:"loadWeb", object: nil)
     let myPath = NSBundle.mainBundle().pathForResource("HistoricalChart", ofType: "html")
-
     webView.loadRequest(NSURLRequest(URL: NSURL(string: myPath!)!))
 
   }
+  
   
   func webViewDidFinishLoad(webView: UIWebView) {
     let script = "$(function(){plotChart(\"" + stockSymbol! + "\");});"
     webView.stringByEvaluatingJavaScriptFromString(script)
   }
+  
+  func reloadWebview() {
+    let myPath = NSBundle.mainBundle().pathForResource("HistoricalChart", ofType: "html")    
+    webView.loadRequest(NSURLRequest(URL: NSURL(string: myPath!)!))
+
+  }
+  
 }

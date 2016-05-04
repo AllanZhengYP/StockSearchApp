@@ -29,6 +29,7 @@ class StockDetailViewController: UIViewController {
   @IBAction func touchSegmentedController(sender: AnyObject) {
     if segmentControlBar.selectedSegmentIndex == 0 {
       DetailTableContainer.hidden = false
+//      performSegueWithIdentifier("sagueToDetailTable", sender: self)
       WebviewContainer.hidden = true
       NewsViewContainer.hidden = true
     }
@@ -36,13 +37,13 @@ class StockDetailViewController: UIViewController {
       DetailTableContainer.hidden = true
       WebviewContainer.hidden = false
       NewsViewContainer.hidden = true
-      
+      NSNotificationCenter.defaultCenter().postNotificationName("loadWeb", object: nil)
     }
     else if segmentControlBar.selectedSegmentIndex == 2 {
       DetailTableContainer.hidden = true
       WebviewContainer.hidden = true
       NewsViewContainer.hidden = false
-      
+      NSNotificationCenter.defaultCenter().postNotificationName("loadNews", object: nil)
     }
   }
   

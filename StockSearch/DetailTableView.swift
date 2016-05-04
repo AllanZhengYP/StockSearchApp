@@ -21,9 +21,6 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
   @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet weak var likeButton: UIButton!
   @IBAction func hitLikeButton(sender: AnyObject) {
-    
-    
-    
     let isInList = isInFavList(stockDetail![1]["Symbol"]!)
     if !isInList {
       saveSybmol(stockDetail![1]["Symbol"]!)
@@ -205,5 +202,10 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 11
   }
+  
+}
+
+//implement the reloading of detailtable when tab on segmented control
+extension DetailTableView {
   
 }
