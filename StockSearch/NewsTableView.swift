@@ -28,16 +28,16 @@ class NewsTableView: UIViewController, UITableViewDelegate, UITableViewDataSourc
     newscell.newsBody.text = newsData[indexPath.row]["Description"]
     newscell.newsPulisher.text = newsData[indexPath.row]["Source"]
     
-//    //convert the date
-//    let dateFormatter = NSDateFormatter()
-//    dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-//    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
-//    let date = dateFormatter.dateFromString( newsData[indexPath.row]["Date"]!)
-//    let outputFormatter = NSDateFormatter()
-//    outputFormatter.dateFormat = "yyyy-MM-dd HH:mm"
-//    let convertedDate = outputFormatter.stringFromDate(date!)
+    //convert the date
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+    let date = dateFormatter.dateFromString( newsData[indexPath.row]["Date"]!)
+    let outputFormatter = NSDateFormatter()
+    outputFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+    let convertedDate = outputFormatter.stringFromDate(date!)
     
-    newscell.newsDate.text = newsData[indexPath.row]["Date"]
+    newscell.newsDate.text = convertedDate
 
     
     return newscell

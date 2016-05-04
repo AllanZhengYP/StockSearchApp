@@ -19,9 +19,11 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
   var stocks = [NSManagedObject]() //prepare for core data
   var favouriteListLog = [NSManagedObject]()
   var yahooChartURL: NSURL?
-  //create facebook share content
-  let content : FBSDKShareLinkContent = FBSDKShareLinkContent()
   
+  //a virtual facebook share button has share functionality
+  let button: FBSDKShareButton = FBSDKShareButton()
+  
+  @IBOutlet weak var fbShareButton: UIButton!
   @IBOutlet weak var yahooChartView: UIImageView!
   @IBOutlet weak var detailTable: UITableView!
   @IBOutlet weak var textLabel: UILabel!
@@ -96,9 +98,19 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
       }
     }
     
+    
+    fbShareButton.addTarget(self, action: #selector(DetailTableView.postFacebook(_:)), forControlEvents: .TouchUpInside)
+    
+    //set the content of facebook sharing
+    //create facebook share content
+    let content : FBSDKShareLinkContent = FBSDKShareLinkContent()
     content.contentTitle = "Current Stock Price of "+stockDetail![0]["Name"]!+" is $ "+String(round(Double(stockDetail![2]["LastPrice"]!)! * 100) / 100)
     content.imageURL = yahooChartURL
     content.contentDescription = "Stock Information of "+stockDetail![0]["Name"]!+" ("+stockDetail![1]["Symbol"]!+")"
+    content.contentURL = NSURL(string: "http://finance.yahoo.com/q?s=" + stockDetail![1]["Symbol"]!)
+    content.ref = "finance.yahoo.com"
+    button.shareContent = content
+    
   }
   
   override func viewWillLayoutSubviews() {//set the scrollviews area
@@ -222,8 +234,8 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
 
 //implement facebook button
 extension DetailTableView {
-  @IBAction func hitShareButton(sender: AnyObject) {
-    
+  func postFacebook(sender: UIButton) {
+    button.sendActionsForControlEvents(.TouchUpInside)
   }
   
 }

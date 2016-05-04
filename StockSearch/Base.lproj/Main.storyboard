@@ -18,6 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Tbu-QF-hhC">
+                                <rect key="frame" x="282" y="376" width="37" height="37"/>
+                                <color key="color" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favourites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA4-Uw-4FJ">
                                 <rect key="frame" x="20" y="229" width="79" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -101,6 +105,15 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="l19-wy-Lgu"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Stock Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqP-Re-L4h">
+                                <rect key="frame" x="215" y="82" width="170" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="29"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="heightClass=regular" misplaced="YES">
+                                    <rect key="frame" x="229" y="0.0" width="102" height="21"/>
+                                </variation>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="74" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iHp-8m-zOU">
                                 <rect key="frame" x="20" y="259" width="560" height="350"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -172,15 +185,6 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Lwg-Mj-zvc"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Stock Search" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqP-Re-L4h">
-                                <rect key="frame" x="215" y="82" width="170" height="21"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="29"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="heightClass=regular" misplaced="YES">
-                                    <rect key="frame" x="229" y="0.0" width="102" height="21"/>
-                                </variation>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.12941176470588234" green="0.91764705882352937" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -204,10 +208,12 @@
                             <constraint firstItem="fA4-Uw-4FJ" firstAttribute="top" secondItem="u6u-A4-h6C" secondAttribute="bottom" constant="59" id="hzc-3e-I9i"/>
                             <constraint firstItem="iHp-8m-zOU" firstAttribute="leading" secondItem="fA4-Uw-4FJ" secondAttribute="leading" id="l63-YM-RD9"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="wN0-cR-ebY" secondAttribute="bottom" constant="349" id="nRk-XP-Vpw"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Tbu-QF-hhC" secondAttribute="bottom" constant="187" id="oXN-A3-WBs"/>
                             <constraint firstItem="fA4-Uw-4FJ" firstAttribute="centerY" secondItem="2bZ-CQ-F01" secondAttribute="centerY" id="qwc-hw-Bzh"/>
                             <constraint firstItem="2bZ-CQ-F01" firstAttribute="centerY" secondItem="Tme-Rb-HJ0" secondAttribute="centerY" constant="-1" id="sH3-U5-97w"/>
                             <constraint firstAttribute="bottomMargin" secondItem="iHp-8m-zOU" secondAttribute="bottom" constant="-9" id="u2A-L6-87G"/>
                             <constraint firstItem="jZp-TA-KFM" firstAttribute="centerX" secondItem="u6u-A4-h6C" secondAttribute="centerX" id="wma-L1-IGQ"/>
+                            <constraint firstItem="Tbu-QF-hhC" firstAttribute="centerX" secondItem="jZp-TA-KFM" secondAttribute="centerX" id="yRT-eV-NHV"/>
                             <constraint firstItem="u6u-A4-h6C" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="137" id="zwK-bj-HtM"/>
                         </constraints>
                         <variation key="default">
@@ -220,6 +226,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="uZc-Dh-n8C"/>
                     <connections>
+                        <outlet property="FavTableIsLoading" destination="Tbu-QF-hhC" id="3ih-gJ-Ja2"/>
                         <outlet property="NavControlBar" destination="uZc-Dh-n8C" id="0aP-PL-zcy"/>
                         <outlet property="favouritListTable" destination="iHp-8m-zOU" id="Q4F-E4-OUJ"/>
                         <outlet property="getQuoteButton" destination="jZp-TA-KFM" id="3Pe-Sf-5L7"/>
@@ -243,10 +250,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="esL-vJ-IpR">
-                                <rect key="frame" x="188" y="74" width="224" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="224" id="lhp-di-Vpz"/>
-                                </constraints>
+                                <rect key="frame" x="20" y="74" width="560" height="29"/>
                                 <segments>
                                     <segment title="Current"/>
                                     <segment title="Historical"/>
@@ -280,25 +284,24 @@
                             <constraint firstItem="VTb-ZN-QUE" firstAttribute="centerX" secondItem="62Z-eU-hBG" secondAttribute="centerX" id="02P-Gi-gkj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="62Z-eU-hBG" secondAttribute="trailing" id="3I6-6W-6gD"/>
                             <constraint firstItem="62Z-eU-hBG" firstAttribute="leading" secondItem="pwD-a6-Lhp" secondAttribute="leadingMargin" id="612-qK-C2M"/>
-                            <constraint firstItem="62Z-eU-hBG" firstAttribute="top" secondItem="esL-vJ-IpR" secondAttribute="bottom" constant="8" symbolic="YES" id="AZI-W9-7HT"/>
-                            <constraint firstItem="jpH-O4-ovX" firstAttribute="centerX" secondItem="esL-vJ-IpR" secondAttribute="centerX" id="BgT-aq-RHZ"/>
                             <constraint firstItem="VTb-ZN-QUE" firstAttribute="centerX" secondItem="jpH-O4-ovX" secondAttribute="centerX" id="Cb1-qu-fH4"/>
                             <constraint firstItem="jpH-O4-ovX" firstAttribute="bottom" secondItem="GAL-W8-zWx" secondAttribute="top" id="CgR-F9-Igo"/>
+                            <constraint firstItem="62Z-eU-hBG" firstAttribute="top" secondItem="esL-vJ-IpR" secondAttribute="bottom" constant="8" symbolic="YES" id="GgP-5g-Roi"/>
                             <constraint firstAttribute="trailingMargin" secondItem="62Z-eU-hBG" secondAttribute="trailing" id="HGE-Yf-sRV"/>
                             <constraint firstItem="62Z-eU-hBG" firstAttribute="centerX" secondItem="esL-vJ-IpR" secondAttribute="centerX" id="Jed-vU-7UA"/>
                             <constraint firstItem="62Z-eU-hBG" firstAttribute="bottom" secondItem="GAL-W8-zWx" secondAttribute="top" id="KWs-Rd-lan"/>
                             <constraint firstItem="VTb-ZN-QUE" firstAttribute="top" secondItem="62Z-eU-hBG" secondAttribute="top" id="NJG-VE-fc8"/>
-                            <constraint firstItem="VTb-ZN-QUE" firstAttribute="top" secondItem="esL-vJ-IpR" secondAttribute="bottom" constant="8" symbolic="YES" id="Nw7-1u-dC8"/>
                             <constraint firstItem="VTb-ZN-QUE" firstAttribute="bottom" secondItem="jpH-O4-ovX" secondAttribute="bottom" id="Qnw-cf-Eac"/>
+                            <constraint firstItem="esL-vJ-IpR" firstAttribute="trailing" secondItem="VTb-ZN-QUE" secondAttribute="trailing" id="VcQ-Qe-wsc"/>
                             <constraint firstItem="VTb-ZN-QUE" firstAttribute="top" secondItem="jpH-O4-ovX" secondAttribute="top" id="VpJ-Xn-NSH"/>
-                            <constraint firstItem="esL-vJ-IpR" firstAttribute="top" secondItem="g0V-rN-vhN" secondAttribute="bottom" constant="10" id="XVu-hc-ZuG"/>
+                            <constraint firstItem="esL-vJ-IpR" firstAttribute="top" secondItem="g0V-rN-vhN" secondAttribute="bottom" constant="10" id="hT5-83-7v6"/>
                             <constraint firstItem="VTb-ZN-QUE" firstAttribute="leading" secondItem="pwD-a6-Lhp" secondAttribute="leadingMargin" id="hc2-QW-YhT"/>
-                            <constraint firstItem="esL-vJ-IpR" firstAttribute="centerX" secondItem="pwD-a6-Lhp" secondAttribute="centerX" id="ihB-PX-TNU"/>
-                            <constraint firstItem="VTb-ZN-QUE" firstAttribute="centerX" secondItem="esL-vJ-IpR" secondAttribute="centerX" id="laI-LF-YFC"/>
+                            <constraint firstItem="esL-vJ-IpR" firstAttribute="leading" secondItem="62Z-eU-hBG" secondAttribute="leading" id="iXV-V7-nYg"/>
                             <constraint firstItem="62Z-eU-hBG" firstAttribute="trailing" secondItem="jpH-O4-ovX" secondAttribute="trailing" id="odW-Bb-ZfL"/>
                             <constraint firstItem="VTb-ZN-QUE" firstAttribute="bottom" secondItem="GAL-W8-zWx" secondAttribute="top" id="ouW-x2-7hd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="62Z-eU-hBG" secondAttribute="trailing" id="sJ5-qE-cOQ"/>
-                            <constraint firstItem="jpH-O4-ovX" firstAttribute="top" secondItem="esL-vJ-IpR" secondAttribute="bottom" constant="8" symbolic="YES" id="uhB-fA-PFa"/>
+                            <constraint firstItem="esL-vJ-IpR" firstAttribute="trailing" secondItem="62Z-eU-hBG" secondAttribute="trailing" id="ssH-Yi-ZFu"/>
+                            <constraint firstItem="VTb-ZN-QUE" firstAttribute="top" secondItem="esL-vJ-IpR" secondAttribute="bottom" constant="8" symbolic="YES" id="uz8-lG-V1A"/>
                             <constraint firstItem="jpH-O4-ovX" firstAttribute="leading" secondItem="pwD-a6-Lhp" secondAttribute="leadingMargin" id="vJy-xU-bwx"/>
                         </constraints>
                         <variation key="default">
@@ -368,9 +371,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvF-VX-KBR">
                                         <rect key="frame" x="234" y="8" width="50" height="50"/>
                                         <state key="normal" image="Facebook Filled-50"/>
-                                        <connections>
-                                            <action selector="hitShareButton:" destination="aEf-Ih-tp6" eventType="touchUpInside" id="jQ8-af-PKT"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="268" verticalHuggingPriority="251" text="Stock Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nId-hW-uKH">
                                         <rect key="frame" x="8" y="8" width="146" height="50"/>
@@ -497,6 +497,7 @@
                     <size key="freeformSize" width="560" height="1200"/>
                     <connections>
                         <outlet property="detailTable" destination="JI6-jS-LON" id="1pm-Yx-FUl"/>
+                        <outlet property="fbShareButton" destination="yvF-VX-KBR" id="LuT-iB-qSc"/>
                         <outlet property="likeButton" destination="PuL-ob-cL5" id="BOj-In-xSj"/>
                         <outlet property="scrollView" destination="Sdr-y8-Y12" id="wdl-Kv-U92"/>
                         <outlet property="textLabel" destination="nId-hW-uKH" id="6bN-cH-UYP"/>

@@ -20,6 +20,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var NavControlBar: UINavigationItem!
   @IBOutlet weak var favouritListTable: UITableView!
   @IBOutlet weak var getQuoteButton: UIButton!
+  @IBOutlet weak var FavTableIsLoading: UIActivityIndicatorView!
   
   
   var newsData: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
@@ -174,9 +175,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource { //favouri
     //query for detail
     let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["symbol": symbol!]).responseJSON()
     let jsonData = JSON(data: queryResult.data!)
-    var favStockInfo: (Name: String, Change: Double, ChangePercent: Double, MarketCap: Double)?
+    var favStockInfo: (Name: String, LastPrice: Double, Change: Double, ChangePercent: Double, MarketCap: Double)?
     if jsonData.count > 0 && jsonData["Status"].string! == "SUCCESS" {
       favStockInfo = (jsonData["Name"].string!,
+                      jsonData["LastPrice"].double!,
                       jsonData["Change"].double!,
                       jsonData["ChangePercent"].double!,
                       jsonData["MarketCap"].double!)
@@ -209,6 +211,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource { //favouri
       capStr = String(round(cap * 100) / 100)
       cell.marketCap.text = "Market Cap:  " + capStr!
     }
+    
+    //cell last price
+    cell.lastPrice.text = "$ " + String(round(Double((favStockInfo?.LastPrice)!) * 100) / 100)
 
     return cell
   }
@@ -242,6 +247,7 @@ extension ViewController {
   }
   
   func reloadFavListTable() {
+    FavTableIsLoading.startAnimating()
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let managedContext = appDelegate.managedObjectContext
     
@@ -255,6 +261,7 @@ extension ViewController {
     favouriteListLog = fetchedResults
     
     favouritListTable.reloadData()
+    FavTableIsLoading.stopAnimating()
   }
 }
 
@@ -262,8 +269,8 @@ extension ViewController {
 //implement the auto refresh
 extension ViewController {
   
-  @IBAction func autoRefreshSwitch(sender: AnyObject) {
-    if (sender.on != nil) {
+  @IBAction func autoRefreshSwitch(sender: UISwitch) {
+    if sender.on {
       timer.invalidate()
       timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(ViewController.reloadFavListTable), userInfo: nil, repeats: true)
     } else {
