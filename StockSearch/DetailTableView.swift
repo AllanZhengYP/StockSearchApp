@@ -23,10 +23,15 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
   @IBAction func hitLikeButton(sender: AnyObject) {
     
     
-    likeButton.setImage(UIImage(named: "StarFilled-50"), forState: UIControlState.Normal)
-    if !isInFavList(stockDetail![1]["Symbol"]!) {
+    
+    let isInList = isInFavList(stockDetail![1]["Symbol"]!)
+    if !isInList {
       saveSybmol(stockDetail![1]["Symbol"]!)
-    }    
+      likeButton.setImage(UIImage(named: "StarFilled-50"), forState: UIControlState.Normal)
+    } else {
+      deleteSymbol(stockDetail![1]["Symbol"]!)
+      likeButton.setImage(UIImage(named: "StarUnfilled-50"), forState: UIControlState.Normal)
+    }
   }
   
   //like the button, insert the symbol into Core Data
@@ -43,6 +48,31 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
       print("error in saving \(symbol)")
     }
     
+  }
+  
+  func deleteSymbol(symbol: String) -> () {
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let fetchRequest = NSFetchRequest(entityName: "FavouriteStock")
+    var tmpFavouriteList = [NSManagedObject]()
+    do {
+      tmpFavouriteList = try managedContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+    } catch {
+      print("Could not fetch")
+    }
+    if tmpFavouriteList.count > 0 {
+      for (i, managedContextItem) in tmpFavouriteList.enumerate() {
+        let itemSymbol = managedContextItem.valueForKey("symbol") as! String
+        if itemSymbol == symbol{
+          managedContext.deleteObject(favouriteListLog[i] as NSManagedObject)
+          do {
+            try managedContext.save()
+          } catch {
+            print("error in deleting item form Core Data")
+          }
+        }
+      }
+    }
   }
   
   override func viewDidLoad() {

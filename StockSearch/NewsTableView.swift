@@ -13,6 +13,7 @@ import Alamofire_Synchronous
 import SwiftyJSON
 
 class NewsTableView: UIViewController, UITableViewDelegate, UITableViewDataSource {
+  @IBOutlet weak var newsListTable: UITableView!
   var stockSymbol: String?
   var newsData: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
   override func viewDidLoad() {

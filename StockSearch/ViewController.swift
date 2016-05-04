@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var textInput: UITextField!
   @IBOutlet weak var NavControlBar: UINavigationItem!
   @IBOutlet weak var favouritListTable: UITableView!
+  @IBOutlet weak var getQuoteButton: UIButton!
   
   
   var newsData: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
@@ -52,41 +53,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
       
     }
     else {
-      let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["symbol": textInput.text!]).responseJSON()
-      let jsonData = JSON(data: queryResult.data!)
-  
+      stockDetail = getDetailData(textInput.text!)
       textInput.text = ""
       haveSelectedItem = false
-      
-      if jsonData.count > 0 && jsonData["Status"].string! == "SUCCESS" {
-        stockDetail.removeAll()
-        stockDetail.append(["Name" : jsonData["Name"].string!])
-        stockDetail.append(["Symbol" : jsonData["Symbol"].string!])
-        stockDetail.append(["LastPrice" : String(jsonData["LastPrice"].double!)])
-        stockDetail.append(["Change" : String(jsonData["Change"].double!)])
-        stockDetail.append(["ChangePercent" : String(jsonData["ChangePercent"].double!)])
-        stockDetail.append(["Timestamp" : jsonData["Timestamp"].string!])
-        stockDetail.append(["MSDate" : String(jsonData["MSDate"].double!)])
-        stockDetail.append(["MarketCap" : String(jsonData["MarketCap"].double!)])
-        stockDetail.append(["Volume" : String(jsonData["Volume"].double!)])
-        stockDetail.append(["ChangeYTD" : String(jsonData["ChangeYTD"].double!)])
-        stockDetail.append(["ChangePercentYTD" : String(jsonData["ChangePercentYTD"].double!)])
-        stockDetail.append(["High" : String(jsonData["High"].double!)])
-        stockDetail.append(["Low" : String(jsonData["Low"].double!)])
-        stockDetail.append(["Open" : String(jsonData["Open"].double!)])
-        
-        stockDetailLoaded = true
-
-      }
-      else {
-        textInput.text = nil
-        let alert: UIAlertController = UIAlertController(title: "Invalid Symbol", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-        alert.addAction(action)
-        self.presentViewController(alert, animated: true, completion: nil)
-
-      }
-//      print(stockDetail[0]["Name"])
+      stockDetailLoaded = true
     }
   }
   
@@ -111,12 +81,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
     reloadFavListTable()
   }
   
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     let detail: StockDetailViewController = segue.destinationViewController as! StockDetailViewController
 
     if segue.identifier == "OptToStockDetail" && stockDetailLoaded == true{
       detail.stockDetail = stockDetail
       stockDetailLoaded = false
+    }
+    //prepare sague on tabing favourite list row
+    if segue.identifier == "FavListSague" {
+      let tabOnIndex = favouritListTable.indexPathForSelectedRow?.row
+      let tabOnSymbol = favouriteListLog[tabOnIndex!].valueForKey("symbol") as! String
+      detail.stockDetail = getDetailData(tabOnSymbol)
     }
     
   }
@@ -137,6 +114,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 }
 
+//autocomplete
 extension ViewController: AutocompleteDelegate {
   func autoCompleteTextField() -> UITextField {
     return self.textInput
@@ -174,6 +152,7 @@ extension ViewController: AutocompleteDelegate {
   }
 }
 
+//implement the favourite list
 extension ViewController: UITableViewDelegate, UITableViewDataSource { //favourite list loading
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return favouriteListLog.count
@@ -247,7 +226,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource { //favouri
       return
     }
   }
-  
 }
 
 //implement the refresh button
@@ -280,11 +258,48 @@ extension ViewController {
   @IBAction func autoRefreshSwitch(sender: AnyObject) {
     if (sender.on != nil) {
       timer.invalidate()
-      timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: Selector(reloadFavListTable()), userInfo: nil, repeats: true)
+      timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(ViewController.reloadFavListTable), userInfo: nil, repeats: true)
     } else {
       timer.invalidate()
     }
   }
   
+}
+
+//implement get quote data
+extension ViewController {
+  func getDetailData(input: String) -> Array<Dictionary<String, String>> {
+    let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["symbol": input]).responseJSON()
+    let jsonData = JSON(data: queryResult.data!)
+    
+    var tmpStockDetail: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
+    
+    if jsonData.count > 0 && jsonData["Status"].string! == "SUCCESS" {
+      tmpStockDetail.removeAll()
+      tmpStockDetail.append(["Name" : jsonData["Name"].string!])
+      tmpStockDetail.append(["Symbol" : jsonData["Symbol"].string!])
+      tmpStockDetail.append(["LastPrice" : String(jsonData["LastPrice"].double!)])
+      tmpStockDetail.append(["Change" : String(jsonData["Change"].double!)])
+      tmpStockDetail.append(["ChangePercent" : String(jsonData["ChangePercent"].double!)])
+      tmpStockDetail.append(["Timestamp" : jsonData["Timestamp"].string!])
+      tmpStockDetail.append(["MSDate" : String(jsonData["MSDate"].double!)])
+      tmpStockDetail.append(["MarketCap" : String(jsonData["MarketCap"].double!)])
+      tmpStockDetail.append(["Volume" : String(jsonData["Volume"].double!)])
+      tmpStockDetail.append(["ChangeYTD" : String(jsonData["ChangeYTD"].double!)])
+      tmpStockDetail.append(["ChangePercentYTD" : String(jsonData["ChangePercentYTD"].double!)])
+      tmpStockDetail.append(["High" : String(jsonData["High"].double!)])
+      tmpStockDetail.append(["Low" : String(jsonData["Low"].double!)])
+      tmpStockDetail.append(["Open" : String(jsonData["Open"].double!)])
+      
+    }
+    else {
+      let alert: UIAlertController = UIAlertController(title: "Invalid Symbol", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+      let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+      alert.addAction(action)
+      self.presentViewController(alert, animated: true, completion: nil)
+      
+    }
+    return tmpStockDetail
+  }
 }
 
