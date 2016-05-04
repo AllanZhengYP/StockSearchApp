@@ -124,7 +124,13 @@ extension ViewController: AutocompleteDelegate {
   }
   
   func autoCompleteItemsForSearchTerm(term: String) -> [AutocompletableOption] {
-    let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["input": term]).responseJSON()
+    let trimmedTerm = term.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    if trimmedTerm == ""{
+      return [AutocompletableOption]()
+    }
+    let charSet = NSCharacterSet.URLQueryAllowedCharacterSet()
+    let encodedTerm = trimmedTerm.stringByAddingPercentEncodingWithAllowedCharacters(charSet)!
+    let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["input": encodedTerm]).responseJSON()
     let jsonData = JSON(data: queryResult.data!)
     var autocompleteList: Array<AutocompletableOption> = Array<AutocompletableOption>()
     for i in 0 ..< jsonData.count {
@@ -150,6 +156,7 @@ extension ViewController: AutocompleteDelegate {
     self.textInput.text = item.text[item.text.startIndex...index!]
     self.haveSelectedItem = true
   }
+  
 }
 
 //implement the favourite list
@@ -200,7 +207,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource { //favouri
     }
     else {
       capStr = String(round(cap * 100) / 100)
-      cell.marketCap.text = “Market Cap: " + capStr
+      cell.marketCap.text = "Market Cap:  " + capStr!
     }
 
     return cell

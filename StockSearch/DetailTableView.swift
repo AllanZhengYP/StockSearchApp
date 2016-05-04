@@ -206,6 +206,28 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
 }
 
 //implement facebook button
-extension DetailTableView: FBLoginViewDelegate {
+extension DetailTableView: FBSDKLoginButtonDelegate {
+  func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+//    println("User Logged In")
+    
+    if ((error) != nil)
+    {
+      // Process error
+    }
+    else if result.isCancelled {
+      // Handle cancellations
+    }
+    else {
+      // If you ask for multiple permissions at once, you
+      // should check if specific permissions missing
+      if result.grantedPermissions.contains("email")
+      {
+        // Do work
+      }
+    }
+  }
   
+  func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+//    println("User Logged Out")
+  }
 }
