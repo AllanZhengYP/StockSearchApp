@@ -9,11 +9,18 @@
 import Foundation
 import UIKit
 import CoreData
+import Social
+import FBSDKShareKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSource {
   var stockDetail: Array<Dictionary<String, String>>?
   var stocks = [NSManagedObject]() //prepare for core data
   var favouriteListLog = [NSManagedObject]()
+  var yahooChartURL: NSURL?
+  //create facebook share content
+  let content : FBSDKShareLinkContent = FBSDKShareLinkContent()
   
   @IBOutlet weak var yahooChartView: UIImageView!
   @IBOutlet weak var detailTable: UITableView!
@@ -77,6 +84,21 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
     if isInFavList(stockDetail![1]["Symbol"]!) {
       likeButton.setImage(UIImage(named: "StarFilled-50"), forState: UIControlState.Normal)
     }
+    
+    //load the yahoo chart
+    if (stockDetail != nil) && (stockDetail![1]["Symbol"] != nil) {
+      let imgURL: String = "http://chart.finance.yahoo.com/t?s="+stockDetail![1]["Symbol"]!+"&lang=en-US&width=480&height=350"
+      if let url:NSURL = NSURL(string: imgURL)! {
+        yahooChartURL = url
+        if let data = NSData(contentsOfURL: url) {
+          yahooChartView.image  = UIImage(data: data)
+        }
+      }
+    }
+    
+    content.contentTitle = "Current Stock Price of "+stockDetail![0]["Name"]!+" is $ "+String(round(Double(stockDetail![2]["LastPrice"]!)! * 100) / 100)
+    content.imageURL = yahooChartURL
+    content.contentDescription = "Stock Information of "+stockDetail![0]["Name"]!+" ("+stockDetail![1]["Symbol"]!+")"
   }
   
   override func viewWillLayoutSubviews() {//set the scrollviews area
@@ -186,15 +208,6 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
       cell.textLabel?.text = "Key"
     }
     
-    if (stockDetail != nil) && (stockDetail![1]["Symbol"] != nil) {
-      let imgURL: String = "http://chart.finance.yahoo.com/t?s="+stockDetail![1]["Symbol"]!+"&lang=en-US&width=480&height=350"
-      if let url:NSURL = NSURL(string: imgURL)! {
-        if let data = NSData(contentsOfURL: url) {
-          yahooChartView.image = UIImage(data: data)
-        }
-      }
-    }
-    
     return cell
   }
 
@@ -203,31 +216,14 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
     return 11
   }
   
+  
+  
 }
 
 //implement facebook button
-extension DetailTableView: FBSDKLoginButtonDelegate {
-  func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-//    println("User Logged In")
+extension DetailTableView {
+  @IBAction func hitShareButton(sender: AnyObject) {
     
-    if ((error) != nil)
-    {
-      // Process error
-    }
-    else if result.isCancelled {
-      // Handle cancellations
-    }
-    else {
-      // If you ask for multiple permissions at once, you
-      // should check if specific permissions missing
-      if result.grantedPermissions.contains("email")
-      {
-        // Do work
-      }
-    }
   }
   
-  func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-//    println("User Logged Out")
-  }
 }
