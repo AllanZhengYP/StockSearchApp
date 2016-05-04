@@ -200,7 +200,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource { //favouri
     }
     else {
       capStr = String(round(cap * 100) / 100)
-      cell.marketCap.text = capStr
+      cell.marketCap.text = “Market Cap: " + capStr
     }
 
     return cell

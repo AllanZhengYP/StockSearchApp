@@ -205,7 +205,7 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
   
 }
 
-//implement the reloading of detailtable when tab on segmented control
-extension DetailTableView {
+//implement facebook button
+extension DetailTableView: FBLoginViewDelegate {
   
 }
