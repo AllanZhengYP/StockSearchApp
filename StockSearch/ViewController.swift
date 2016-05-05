@@ -29,8 +29,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
   var autoCompleteViewController: AutoCompleteViewController!
   var isFirstLoad: Bool = true
   
-  var haveSelectedItem: Bool = false
-  
   var stockDetailLoaded: Bool = false
   
   var favouriteListLog = [NSManagedObject]() //type shifter for Core Data
@@ -46,18 +44,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
       alert.addAction(action)
       self.presentViewController(alert, animated: true, completion: nil)
     }
-    else if haveSelectedItem == false {
-      textInput.text = nil
-      let alert: UIAlertController = UIAlertController(title: "Invalid Symbol", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-      let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-      alert.addAction(action)
-      self.presentViewController(alert, animated: true, completion: nil)
-      
-    }
     else {
       stockDetail = getDetailData(textInput.text!)
       textInput.text = ""
-      haveSelectedItem = false
+      //haveSelectedItem = false
       stockDetailLoaded = true
     }
   }
@@ -156,7 +146,7 @@ extension ViewController: AutocompleteDelegate {
 //    self.textInput.text = item.text.inde
     let index = item.text.characters.indexOf("-")?.predecessor()
     self.textInput.text = item.text[item.text.startIndex...index!]
-    self.haveSelectedItem = true
+    //self.haveSelectedItem = true
   }
   
 }
@@ -293,6 +283,14 @@ extension ViewController {
     let queryResult = Alamofire.request(.GET, "http://steel-utility-127007.appspot.com", parameters: ["symbol": input]).responseJSON()
     let jsonData = JSON(data: queryResult.data!)
     
+    if jsonData["Status"] == nil {
+      let alert: UIAlertController = UIAlertController(title: "Invalid Symbol", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+      let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+      alert.addAction(action)
+      self.presentViewController(alert, animated: true, completion: nil)
+      return Array<Dictionary<String, String>>()
+    }
+    
     var tmpStockDetail: Array<Dictionary<String, String>> = Array<Dictionary<String, String>>()
     
     if jsonData.count > 0 && jsonData["Status"].string! == "SUCCESS" {
@@ -314,7 +312,7 @@ extension ViewController {
       
     }
     else {
-      let alert: UIAlertController = UIAlertController(title: "Invalid Symbol", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+      let alert: UIAlertController = UIAlertController(title: "No Stock Details Available", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
       let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
       alert.addAction(action)
       self.presentViewController(alert, animated: true, completion: nil)

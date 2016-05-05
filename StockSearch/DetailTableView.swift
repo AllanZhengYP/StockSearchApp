@@ -263,6 +263,7 @@ extension DetailTableView: FBSDKSharingDelegate{
       alert.addAction(action)
       self.presentViewController(alert, animated: true, completion: nil)
     } else {
+//      print("results:\(results)")
       let alert: UIAlertController = UIAlertController(title: "Post Successfully", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
       let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
       alert.addAction(action)
