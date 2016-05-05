@@ -12,6 +12,7 @@ import Alamofire
 import Alamofire_Synchronous
 import SwiftyJSON
 import CoreData
+import QuartzCore
 
 
 class ViewController: UIViewController, UITextFieldDelegate {
@@ -74,7 +75,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationController?.navigationBarHidden = true
-
+    FavTableIsLoading.layer.zPosition = CGFloat.max
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -201,11 +202,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource { //favouri
     let capStr: String?
     if cap > 1000_000_000 {
       capStr = String(round(cap / 1000_000_000 * 100) / 100) + " Billion"
-      cell.marketCap.text = capStr
+      cell.marketCap.text = "Market Cap:  " + capStr!
     }
     else if cap > 1000_000 {
       capStr = String(round(cap / 1000_000 * 100) / 100) + " Million"
-      cell.marketCap.text = capStr
+      cell.marketCap.text = "Market Cap:  " + capStr!
     }
     else {
       capStr = String(round(cap * 100) / 100)
@@ -247,7 +248,14 @@ extension ViewController {
   }
   
   func reloadFavListTable() {
+    //spinner indicates working
     FavTableIsLoading.startAnimating()
+    let delay = 1 * Double(NSEC_PER_SEC)
+    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+    dispatch_after(time, dispatch_get_main_queue()){
+      self.FavTableIsLoading.stopAnimating()
+    }
+    //reload favList
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let managedContext = appDelegate.managedObjectContext
     
@@ -261,7 +269,6 @@ extension ViewController {
     favouriteListLog = fetchedResults
     
     favouritListTable.reloadData()
-    FavTableIsLoading.stopAnimating()
   }
 }
 
