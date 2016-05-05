@@ -20,8 +20,7 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
   var favouriteListLog = [NSManagedObject]()
   var yahooChartURL: NSURL?
   
-  //a virtual facebook share button has share functionality
-  let button: FBSDKShareButton = FBSDKShareButton()
+
   
   @IBOutlet weak var fbShareButton: UIButton!
   @IBOutlet weak var yahooChartView: UIImageView!
@@ -98,20 +97,10 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
       }
     }
     
+//    
+//    fbShareButton.addTarget(self, action: #selector(DetailTableView.postFacebook(_:)), forControlEvents: .TouchUpInside)
     
-    fbShareButton.addTarget(self, action: #selector(DetailTableView.postFacebook(_:)), forControlEvents: .TouchUpInside)
-    
-    //set the content of facebook sharing
-    //create facebook share content
-    let content : FBSDKShareLinkContent = FBSDKShareLinkContent()
-    content.contentTitle = "Current Stock Price of "+stockDetail![0]["Name"]!+" is $ "+String(round(Double(stockDetail![2]["LastPrice"]!)! * 100) / 100)
-    content.imageURL = yahooChartURL
-    content.contentDescription = "Stock Information of "+stockDetail![0]["Name"]!+" ("+stockDetail![1]["Symbol"]!+")"
-    content.contentURL = NSURL(string: "http://finance.yahoo.com/q?s=" + stockDetail![1]["Symbol"]!)
-    content.ref = "finance.yahoo.com"
-    button.shareContent = content
-    
-  }
+      }
   
   override func viewWillLayoutSubviews() {//set the scrollviews area
     scrollView.frame = self.view.bounds
@@ -233,9 +222,51 @@ class DetailTableView: UIViewController, UITableViewDelegate, UITableViewDataSou
 }
 
 //implement facebook button
-extension DetailTableView {
-  func postFacebook(sender: UIButton) {
-    button.sendActionsForControlEvents(.TouchUpInside)
+extension DetailTableView: FBSDKSharingDelegate{
+  @IBAction func hitFbShareButton(sender: AnyObject) {
+    //set the content of facebook sharing
+    //create facebook share content
+    let content : FBSDKShareLinkContent = FBSDKShareLinkContent()
+    content.contentTitle = "Current Stock Price of "+stockDetail![0]["Name"]!+" is $ "+String(round(Double(stockDetail![2]["LastPrice"]!)! * 100) / 100)
+    content.imageURL = yahooChartURL
+    content.contentDescription = "Stock Information of "+stockDetail![0]["Name"]!+" ("+stockDetail![1]["Symbol"]!+")"
+    content.contentURL = NSURL(string: "http://finance.yahoo.com/q?s=" + stockDetail![1]["Symbol"]!)
+    content.ref = "finance.yahoo.com"
+//    FBSDKShareDialog.showFromViewController(self, withContent: content, delegate: nil)
+    let shareDialog = FBSDKShareDialog()
+    shareDialog.fromViewController = self
+    shareDialog.shareContent = content
+    shareDialog.delegate = self
+    shareDialog.mode = FBSDKShareDialogMode.FeedBrowser
+    shareDialog.show()
+    
   }
   
+  func sharerDidCancel(sharer: FBSDKSharing!) {
+    let alert: UIAlertController = UIAlertController(title: "Not Posted", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+    let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+    alert.addAction(action)
+    self.presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  func sharer(sharer: FBSDKSharing!, didFailWithError error: NSError!) {
+    let alert: UIAlertController = UIAlertController(title: "Share Error", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+    let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+    alert.addAction(action)
+    self.presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  func sharer(sharer: FBSDKSharing!, didCompleteWithResults results: [NSObject : AnyObject]!) {
+    if results.count == 0 {
+      let alert: UIAlertController = UIAlertController(title: "Not Posted", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+      let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+      alert.addAction(action)
+      self.presentViewController(alert, animated: true, completion: nil)
+    } else {
+      let alert: UIAlertController = UIAlertController(title: "Post Successfully", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+      let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+      alert.addAction(action)
+      self.presentViewController(alert, animated: true, completion: nil)
+    }
+  }
 }

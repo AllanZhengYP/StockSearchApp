@@ -371,6 +371,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvF-VX-KBR">
                                         <rect key="frame" x="234" y="8" width="50" height="50"/>
                                         <state key="normal" image="Facebook Filled-50"/>
+                                        <connections>
+                                            <action selector="hitFbShareButton:" destination="aEf-Ih-tp6" eventType="touchUpInside" id="qKR-br-n7d"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="268" verticalHuggingPriority="251" text="Stock Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nId-hW-uKH">
                                         <rect key="frame" x="8" y="8" width="146" height="50"/>

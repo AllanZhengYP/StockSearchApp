@@ -16,7 +16,7 @@ class Webview: UIViewController, UIWebViewDelegate {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(Webview.reloadWebview),name:"loadWeb", object: nil)
     let myPath = NSBundle.mainBundle().pathForResource("HistoricalChart", ofType: "html")
     webView.loadRequest(NSURLRequest(URL: NSURL(string: myPath!)!))
-
+    webView.opaque = false
   }
   
   
