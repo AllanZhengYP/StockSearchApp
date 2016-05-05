@@ -17,13 +17,10 @@ This section includes all the details about the stock
 
 ****************************************
 ####Historic Chart####
-![historic chart](./README_img/history_chart.PNG)
+![historic chart](./README_img/history_chart.PNG)![historic chart](./README_img/history_chart_option.PNG)
 
 This chart is also based on [Markiton](http://markitondemand.github.io). This chart is based on Webview, so it support all the features on [stock markit search](http://www-scf.usc.edu/~yangpinz/HW8/StockSearch.html).
 
-Like this:
-
-![historic chart](./README_img/history_chart_option.PNG)
 ****************************************
 ####News####
 ![news](./README_img/news.PNG)
@@ -39,18 +36,17 @@ we can tab on each news and jump to browser to see the detailed news
 ![facebook](./README_img/facebook_share.PNG)
 
 When you tab one facebook button on stock detail section, you are able to post a link to facebook about the stock you a reading. The share title will be the stocks last price. 
+
 ![yahoo](./README_img/yahoo_finance.PNG)
 
 The shared link on facebook is linked to correspond page on [Yahoo Finance](http://finance.yahoo.com)
 
 **************************************
 ####Like the Stock####
-![save to favorite list](./README_img/favorite_list.PNG)
+![save to favorite list](./README_img/favorite_list.PNG)![delete a stock](./README_img/delete_favorite_stock.PNG)
 
 When you tab the star on the head of stock detail section, you are saving the stock to your favorite list. The List is based on Core Data and will save persistly unless you delete them.
 But the data on favorte list well be updated.
-
-![delete a stock](./README_img/delete_favorite_stock.PNG)
 
 You can swipe the delete a stock on favorite list
 
